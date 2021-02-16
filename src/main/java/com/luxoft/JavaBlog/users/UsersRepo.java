@@ -1,4 +1,4 @@
-package com.luxoft.JavaBlog.Users;
+package com.luxoft.JavaBlog.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

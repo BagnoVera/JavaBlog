@@ -1,8 +1,10 @@
 package com.luxoft.JavaBlog.controller;
 
-import com.luxoft.JavaBlog.Users.UsersDTO;
-import com.luxoft.JavaBlog.Users.ValidationException;
-import com.luxoft.JavaBlog.Users.UsersService;
+import com.luxoft.JavaBlog.comment.CommentsDto;
+import com.luxoft.JavaBlog.comment.CommentsService;
+import com.luxoft.JavaBlog.users.UsersDto;
+import com.luxoft.JavaBlog.users.ValidationException;
+import com.luxoft.JavaBlog.users.UsersService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -20,19 +22,19 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping("/save")
-    public UsersDTO saveUsers(@RequestBody UsersDTO UsersDTO) throws ValidationException {
+    public UsersDto saveUsers(@RequestBody UsersDto UsersDTO) throws ValidationException {
         log.info("Handling save users: " + UsersDTO);
         return usersService.saveUser(UsersDTO);
     }
 
     @GetMapping("/findAll")
-    public List<UsersDTO> findAllUsers() {
+    public List<UsersDto> findAllUsers() {
         log.info("Handling find all users request");
         return usersService.findAll();
     }
 
     @GetMapping("/findByEmail")
-    public UsersDTO findByEmail(@RequestParam String email) {
+    public UsersDto findByEmail(@RequestParam String email) {
         log.info("Handling find by email request: " + email);
         return usersService.findByEmail(email);
     }
@@ -44,3 +46,4 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 }
+

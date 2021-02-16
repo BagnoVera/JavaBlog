@@ -1,10 +1,9 @@
-package com.luxoft.JavaBlog.Users;
+package com.luxoft.JavaBlog.users;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class UsersDTO {
+public class UsersDto {
     private Integer id;
     private String name;
     private String passwd;

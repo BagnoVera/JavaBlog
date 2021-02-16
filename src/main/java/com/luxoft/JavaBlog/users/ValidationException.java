@@ -1,4 +1,4 @@
-package com.luxoft.JavaBlog.Users;
+package com.luxoft.JavaBlog.users;
 
 public class ValidationException extends Exception {
 
