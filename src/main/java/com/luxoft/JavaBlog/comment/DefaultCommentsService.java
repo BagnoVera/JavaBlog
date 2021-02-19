@@ -1,6 +1,7 @@
 package com.luxoft.JavaBlog.comment;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,9 @@ import static java.util.Objects.isNull;
 @AllArgsConstructor
 @Service
 public class DefaultCommentsService implements CommentsService {
+    @Autowired
     private CommentsRepo commentsRepo;
+    @Autowired
     private CommentsConverter commentsConverter;
 
     public DefaultCommentsService() {
@@ -26,10 +29,10 @@ public class DefaultCommentsService implements CommentsService {
         }
     }
 
-    public CommentsDto saveComment(CommentsDto commentsDto) throws UnauthorizedCommentException {
-        validateCommentsDTO(commentsDto);
-        Comments savedComment = commentsRepo.save(commentsConverter.fromCommentDtoToComment(commentsDto));
-        return commentsConverter.fromCommentToCommentDto(savedComment);
+    public void saveComment(CommentsDto commentsDto)  {
+        //validateCommentsDTO(commentsDto);
+        Comments savedComment = commentsConverter.fromCommentDtoToComment(commentsDto);
+        commentsRepo.save(savedComment);
     }
     public void deleteUser(Integer commentId) {
         commentsRepo.deleteById(commentId);

@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>JavaBlog</title>
+
     <style>
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
-
         td, th {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
-
         tr:nth-child(even) {
             background-color: #dddddd;
         }
     </style>
-</head>
-<body>
 
-<h2>HTML Table</h2>
+</head>
+<style type="text/css">
+    body { font-family: Arial, Helvetica, Sans-serif; font-size:13px;}
+    #sampleForm label { display:block; margin-top:10px;}
+    #sampleForm input[type="text"] { width:200px; border:solid 1px #000; padding:3px 0px;}
+    #sampleForm img { vertical-align:middle; cursor:pointer; }
+    .imageInputWrapper{ width:200px; border:solid 1px #000;  }
+    #sampleForm input.inputWithImage { width:175px; border:none; margin-right:5px;}
+</style>
+<body>
+<div id="header" style="height: 30px; ">JavaBlog</div>
+<h1>HTML Table</h1>
 
 <table id="usersList"></table>
 
@@ -29,24 +38,26 @@
     <input id="user_name" placeholder="User name">
     <input id="user_passwd" placeholder="User password">
     <input id="user_email" placeholder="User email">
-    <button onclick="createUser()">Create user</button>
+    <button onclick="createUser(); window.location.href='index.html';">Create user</button>
 </form>
 <br>
 <input id="search_field">
 <button onclick="searchByEmail()">Search by Email</button>
 <br>
 <table id="commentList"></table>
+
 <br>
-<form action="./" method="post">
+<form action="#">
     <label for="name">Имя</label>
     <input type="text" name="name" id="name">
-    <label for="comment">Комментарий</label>
-    <textarea name="comment" id="comment"></textarea>
-    <button type="submit" onclick="loadComments()">Опубликовать</button>
+    <label for="comment_text">Комментарий</label>
+    <textarea required placeholder="Что думаете?" name="comment" id="comment_text" rows="5" cols="20"></textarea>
+    <button type="post" onclick="createComment()">Опубликовать</button>
 </form>
 
 <script src="usersFunction.js"></script>
 <script src="commentsFunction.js"></script>
+<script> src="enhanced.js"</script>
 
 <script>
     function searchByEmail() {
@@ -64,7 +75,7 @@
                 html = html + '<tr><td>' + user.id + '</td>\n' +
                     '        <td>' + user.name + '</td>\n' +
                     '        <td>' + user.email + '</td>' +
-                    '        <td><button onclick="deleteUser(' + user.id + ')">Delete</button></td></tr>';
+                    '        <td><button onclick="deleteUser(' + user.id + '); location.href='index.html';">Delete</button></td></tr>';
                 document.getElementById("usersList").innerHTML = html;
             }
         };
@@ -73,10 +84,9 @@
     }
 
     loadUsers();
-    addComment();
-    loadComments();
+    //createComment();
+    //loadComments();
 
 </script>
-
 </body>
 </html>

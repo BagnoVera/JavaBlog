@@ -21,9 +21,9 @@ public class CommentsController {
     private final CommentsService commentsService;
 
     @PostMapping("/save")
-    public CommentsDto saveComments(@RequestBody CommentsDto CommentsDTO) throws UnauthorizedCommentException {
-        log.info("Handling save comments: " + CommentsDTO);
-        return commentsService.saveComment(CommentsDTO);
+    public void saveComments(@RequestBody CommentsDto commentsDTO) throws UnauthorizedCommentException {
+        log.info("Handling save comments: " + commentsDTO);
+        commentsService.saveComment(commentsDTO);
     }
 
     @GetMapping("/findAll")

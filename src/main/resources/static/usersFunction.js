@@ -1,22 +1,3 @@
-function deleteUser(userId) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "http://localhost:8080/users/delete/" + userId, true);
-    xhttp.send();
-}
-
-function createUser() {
-    var userName = document.getElementById("user_name").value;
-    var userEmail = document.getElementById("user_email").value;
-    var userPasswd = document.getElementById("user_passwd").value;
-
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://localhost:8080/users/save");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({name: userName, passwd: userPasswd, email: userEmail}));
-
-    loadUsers();
-}
-
 function loadUsers() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -36,7 +17,7 @@ function loadUsers() {
                     '        <td>' + user.name + '</td>\n' +
                     '        <td>' + user.passwd + '</td>\n' +
                     '        <td>' + user.email + '</td>' +
-                    '        <td><button onclick="deleteUser(' + user.id + ')">Delete</button></td></tr>';
+                    '        <td><button onclick="deleteUser(' + user.id + '), location.reload();">Delete</button></td></tr>';
 
             }
             document.getElementById("usersList").innerHTML = html;
@@ -44,4 +25,24 @@ function loadUsers() {
     };
     xhttp.open("GET", "http://localhost:8080/users/findAll", true);
     xhttp.send();
+
+}
+
+function deleteUser(userId) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://localhost:8080/users/delete/" + userId, true);
+    xhttp.send();
+    loadUsers();
+}
+
+function createUser() {
+    var userName = document.getElementById("user_name").value;
+    var userEmail = document.getElementById("user_email").value;
+    var userPasswd = document.getElementById("user_passwd").value;
+
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    xmlhttp.open("POST", "http://localhost:8080/users/save");
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify({name: userName, passwd: userPasswd, email: userEmail}));
+    loadUsers();
 }
