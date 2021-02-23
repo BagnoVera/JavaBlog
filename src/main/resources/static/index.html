@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>JavaBlog</title>
+    <meta name="viewport" content="width=device-width initial_scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="main.css">
 
     <style>
         table {
@@ -29,12 +32,51 @@
     #sampleForm input.inputWithImage { width:175px; border:none; margin-right:5px;}
 </style>
 <body>
-<div id="header" style="height: 30px; ">JavaBlog</div>
+<div class="page-wrapper">
+    <header>
+        <!-- Иконка сайта -->
+        <link rel="icon" href="images/favicon.ico" type="images/x-icon">
+        <!-- Логотип -->
+        <a href="#">
+            <img src="images/logo.png" alt="#BlondieBlog" width="90" height="90">
+        </a>
+        <!-- Логотип КОНЕЦ -->
+        <!-- Меню категории -->
+        <nav role="navigation">
+            <ul>
+                <li>
+                    <a href="#" class="active">Блог о Java</a>
+                </li>
+                <li>
+                    <a href="#">Разговоры о всяком</a>
+                </li>
+                <li>
+                    <a href="#">Просьбы о помощи</a>
+                </li>
+            </ul>
+        </nav>
+</header>
+        <!-- Меню категории КОНЕЦ -->
+
+<h1>Добро пожаловать на JavaBlog</h1>
+<div class="article-holder">
+    <!-- Статья -->
+    <article>
+        <a href="article.html">
+            <img src="../files/01/mainimage-slide.jpg" alt="Кто пишет на Java - тот счастлив">
+            <div class="details">
+                <h2>Java. Сложно. Непривычно. Интересно.</h2>
+                <p>Кто не работает - тот не ест</p>
+            </div>
+
+        </a>
+    </article>
+    <!-- Статья КОНЕЦ -->
 <h1>HTML Table</h1>
 
 <table id="usersList"></table>
 
-<form action="#">
+<form action="#" method="post">
     <input id="user_name" placeholder="User name">
     <input id="user_passwd" placeholder="User password">
     <input id="user_email" placeholder="User email">
@@ -47,7 +89,7 @@
 <table id="commentList"></table>
 
 <br>
-<form action="#">
+<form action="#" method="post">
     <label for="name">Имя</label>
     <input type="text" name="name" id="name">
     <label for="comment_text">Комментарий</label>
