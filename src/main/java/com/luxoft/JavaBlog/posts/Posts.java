@@ -1,4 +1,4 @@
-package com.luxoft.JavaBlog.comment;
+package com.luxoft.JavaBlog.posts;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,18 +6,21 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "javablog")
+@Table(name = "post")
 @Data//ломбок аннотация: генерирует геттеры, сеттеры, иквалс, хеш код методы
 @NoArgsConstructor//ломбок аннотация: конструктор без аргуметов
-public class Comments {
+public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer commentId;
+    private Integer postId;
 
     @Column
-    private String commentName;
+    private String postName;
 
     @Column
-    private String commentText;
+    private String postTitle;
+
+    @Column
+    private String postText;
 
 }

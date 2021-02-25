@@ -44,5 +44,6 @@ function createUser() {
     xmlhttp.open("POST", "http://localhost:8080/users/save");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(JSON.stringify({name: userName, passwd: userPasswd, email: userEmail}));
+
     loadUsers();
 }

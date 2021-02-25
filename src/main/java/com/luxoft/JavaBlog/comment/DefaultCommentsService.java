@@ -24,7 +24,7 @@ public class DefaultCommentsService implements CommentsService {
         if (isNull(commentsDTO)) {
             throw new UnauthorizedCommentException("Object user is null, deleting a comment prohibited");
         }
-        if (isNull(commentsDTO.getCommentEmail()) || commentsDTO.getCommentEmail().isEmpty() ) {
+        if (isNull(commentsDTO.getCommentName()) || commentsDTO.getCommentName().isEmpty() ) {
             throw new UnauthorizedCommentException("Email is empty, deleting a comment prohibited");
         }
     }

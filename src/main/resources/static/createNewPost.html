@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>New post</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="page-wrapper">
+    <header>
+        <!-- Иконка сайта -->
+        <link rel="icon" href="images/favicon.ico" type="images/x-icon">
+        <!-- Логотип -->
+        <a href="#">
+            <img src="images/logo.png" alt="logo" width="90" height="90">
+        </a>
+        <!-- Логотип КОНЕЦ -->
+        <!-- Меню категории -->
+        <nav role="navigation">
+            <ul>
+                <li>
+                    <a href="index.html" class="active">Блог о Java</a>
+                </li>
+                <li>
+                    <a href="createNewPost.html">Создать новый пост</a>
+                </li>
+                <li>
+                    <a href="#">Просьбы о помощи</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <!-- Меню категории КОНЕЦ -->
+<div>
+    <label for="post_name">Автор поста</label>
+    <input type="text" name="name" id="post_name">
+    <label for="post_title">Наименование поста</label>
+    <input type="text" name="name" id="post_title">
+    <label for="post_text">Ваш пост</label>
+    <textarea required placeholder="Чем хотите поделиться с пользователями?" name="post" id="post_text" rows="5" cols="20"></textarea>
+    <input type="file" class="upload" id="photo-upload"/>
+    <button onclick="newPost(), location.reload()">Опубликовать</button>
+</div>
+
+<script src="postsFunction.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+
+                    var widthImg = $('#blah').width();
+                    console.log("widthImg = " + widthImg);
+                    var widthContent = 342;
+                    console.log("widthContent = " + widthContent);
+
+                    //если ширина картинки больше, чем наш контент, то добавляем коеффициент сжатия
+                    if (+widthImg > +widthContent) {
+                        var koef = +widthImg / +widthContent;
+
+                        $("#koef").val(Math.round(koef*1000));
+                        $('#blah').attr('src', e.target.result).css('width', '100%');
+                    }
+                    else {
+
+                    }
+                    //addJCrop(1);
+                    //jcrop_api.animateTo(getRandom());
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#AddImage").change(function () {
+            $('#blah').attr('src', "~/Content/nophoto.png");
+            readURL(this);
+
+            //$('input[type="file"]').hide();
+            //$('.buttonSubmitImg').show();
+            //CropResult.isUpload = true;
+        });
+    </script>
+</div>
+</body>
+</html>

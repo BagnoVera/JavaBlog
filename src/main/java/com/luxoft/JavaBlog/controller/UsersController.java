@@ -24,7 +24,7 @@ public class UsersController {
     @PostMapping("/save")
     public UsersDto saveUsers(@RequestBody UsersDto UsersDTO) throws ValidationException {
         log.info("Handling save users: " + UsersDTO);
-        return usersService.saveUser(UsersDTO);
+        return usersService.save(UsersDTO);
     }
 
     @GetMapping("/findAll")

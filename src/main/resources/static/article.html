@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <div class="page-wrapper">
@@ -12,5 +13,32 @@
             <img src="images/logo.png" alt="JavaBlog" width="90" height="90">
         </a>
         <!-- Логотип КОНЕЦ -->
+        <div>
+            <!-- Меню категории -->
+            <nav role="navigation">
+                <ul>
+                    <li>
+                        <a href="index.html">Блог о Java</a>
+                    </li>
+                    <li>
+                        <a href="login.html">Войти</a>
+                    </li>
+                    <li>
+                        <a href="createNewPost.html">Создать новый пост</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
+
+        <!-- Меню категории КОНЕЦ -->
+    <div>
+        <label for="comment_name">Имя</label>
+        <input type="text" name="name" id="comment_name">
+        <label for="comment_text">Комментарий</label>
+        <textarea required placeholder="Что думаете?" name="comment" id="comment_text" rows="5" cols="20"></textarea>
+        <button onclick="newComment(), location.reload()">Опубликовать</button>
+    </div>
 </body>
 </html>

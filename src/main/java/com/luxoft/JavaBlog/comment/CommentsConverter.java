@@ -10,14 +10,14 @@ public class CommentsConverter {
     public Comments fromCommentDtoToComment(CommentsDto commentsDTO) {
         Comments comments = new Comments();
         comments.setCommentId(commentsDTO.getCommentId());
-        comments.setCommentEmail(commentsDTO.getCommentEmail());
+        comments.setCommentName(commentsDTO.getCommentName());
         comments.setCommentText(commentsDTO.getCommentText());
         return comments;
     }
     public CommentsDto fromCommentToCommentDto(Comments comments) {
         CommentsDto commentsDto = new CommentsDto();
         commentsDto.setCommentId(comments.getCommentId());
-        commentsDto.setCommentEmail(comments.getCommentEmail());
+        commentsDto.setCommentName(comments.getCommentName());
         commentsDto.setCommentText(comments.getCommentText());
         return commentsDto;
     }

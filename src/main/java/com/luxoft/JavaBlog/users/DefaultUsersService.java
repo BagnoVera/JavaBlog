@@ -23,7 +23,7 @@ public class DefaultUsersService implements UsersService{
         }
     }
 
-    public UsersDto saveUser(UsersDto usersDto) throws ValidationException {
+    public UsersDto save(UsersDto usersDto) throws ValidationException {
         validateUserDTO(usersDto);
         Users savedUser = usersRepo.save(usersConverter.fromUserDtoToUser(usersDto));
         return usersConverter.fromUserToUserDto(savedUser);

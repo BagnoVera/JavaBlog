@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>JavaBlog</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial_scale=1">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="main.css">
@@ -23,14 +24,15 @@
     </style>
 
 </head>
-<style type="text/css">
+<!--
+/*<style type="text/css">
     body { font-family: Arial, Helvetica, Sans-serif; font-size:13px;}
     #sampleForm label { display:block; margin-top:10px;}
     #sampleForm input[type="text"] { width:200px; border:solid 1px #000; padding:3px 0px;}
     #sampleForm img { vertical-align:middle; cursor:pointer; }
     .imageInputWrapper{ width:200px; border:solid 1px #000;  }
     #sampleForm input.inputWithImage { width:175px; border:none; margin-right:5px;}
-</style>
+</style> -->
 <body>
 <div class="page-wrapper">
     <header>
@@ -38,23 +40,25 @@
         <link rel="icon" href="images/favicon.ico" type="images/x-icon">
         <!-- Логотип -->
         <a href="#">
-            <img src="images/logo.png" alt="#BlondieBlog" width="90" height="90">
+            <img src="images/logo.png" alt="logo" width="90" height="90">
         </a>
         <!-- Логотип КОНЕЦ -->
         <!-- Меню категории -->
         <nav role="navigation">
             <ul>
                 <li>
-                    <a href="#" class="active">Блог о Java</a>
+                    <a href="index.html" class="active">Блог о Java</a>
                 </li>
                 <li>
-                    <a href="#">Разговоры о всяком</a>
+                    <a href="login.html">Войти</a>
                 </li>
                 <li>
-                    <a href="#">Просьбы о помощи</a>
+                    <a href="createNewPost.html">Создать новый пост</a>
                 </li>
+
             </ul>
         </nav>
+
 </header>
         <!-- Меню категории КОНЕЦ -->
 
@@ -63,46 +67,46 @@
     <!-- Статья -->
     <article>
         <a href="article.html">
-            <img src="../files/01/mainimage-slide.jpg" alt="Кто пишет на Java - тот счастлив">
+            <img src="images/original.jpg" width="50" height="30" alt="Кто пишет на Java - тот счастлив">
             <div class="details">
                 <h2>Java. Сложно. Непривычно. Интересно.</h2>
-                <p>Кто не работает - тот не ест</p>
+                <p>Кто не работает - тот не пьет кофе</p>
             </div>
 
         </a>
     </article>
     <!-- Статья КОНЕЦ -->
+
 <h1>HTML Table</h1>
 
 <table id="usersList"></table>
-
-<form action="#" method="post">
+<!--Создаем пользователя -->
+<div>
+    <label for="user_name">Имя пользователя</label>
     <input id="user_name" placeholder="User name">
-    <input id="user_passwd" placeholder="User password">
+    <label for="user_email">Email</label>
     <input id="user_email" placeholder="User email">
-    <button onclick="createUser(); window.location.href='index.html';">Create user</button>
-</form>
-<br>
+    <label for="user_passwd">Пароль</label>
+    <input id="user_passwd" placeholder="User password">
+    <button onclick="createUser(), location.reload()">Create user</button>
+</div>
+
+<div>
 <input id="search_field">
 <button onclick="searchByEmail()">Search by Email</button>
-<br>
+</div>
 <table id="commentList"></table>
+<!--Текст поста -->
+</div>
 
-<br>
-<form action="#" method="post">
-    <label for="name">Имя</label>
-    <input type="text" name="name" id="name">
-    <label for="comment_text">Комментарий</label>
-    <textarea required placeholder="Что думаете?" name="comment" id="comment_text" rows="5" cols="20"></textarea>
-    <button type="post" onclick="createComment()">Опубликовать</button>
-</form>
 
 <script src="usersFunction.js"></script>
 <script src="commentsFunction.js"></script>
-<script> src="enhanced.js"</script>
+<script src="enhanced.js"></script>
+
 
 <script>
-    function searchByEmail() {
+    /*function searchByEmail() {
         var email = document.getElementById("search_field").value;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -117,18 +121,21 @@
                 html = html + '<tr><td>' + user.id + '</td>\n' +
                     '        <td>' + user.name + '</td>\n' +
                     '        <td>' + user.email + '</td>' +
-                    '        <td><button onclick="deleteUser(' + user.id + '); location.href='index.html';">Delete</button></td></tr>';
+                    '        <td><button onclick="deleteUser(' + user.id + '); ' +
+                    'location.href='index.html';">Delete</button></td></tr>';
                 document.getElementById("usersList").innerHTML = html;
             }
         };
         xhttp.open("GET", "http://localhost:8080/users/findByEmail?email=" + email, true);
         xhttp.send();
-    }
+    }*/
 
     loadUsers();
     //createComment();
     //loadComments();
 
 </script>
+
+</div>
 </body>
 </html>

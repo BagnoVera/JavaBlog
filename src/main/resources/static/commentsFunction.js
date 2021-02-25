@@ -24,12 +24,14 @@ function loadComments() {
     xhttp.send();
 
 }
-function createComment(){
-    var nameComment = document.getElementById("name").value;
+function newComment(){
+    var nameComment = document.getElementById("comment_name").value;
     var newComment = document.getElementById("comment_text").value;
+
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
     xmlhttp.open("POST", "http://localhost:8080/comments/save");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({name: nameComment, commentText: newComment}));
+    xmlhttp.send(JSON.stringify({commentName: nameComment, commentText: newComment}));
     //loadComments();
 }
 

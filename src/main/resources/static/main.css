@@ -196,7 +196,7 @@ main h1 {
     color: #2d2d2d;
 }
 .article-holder article img {
-    width: 100%;
+    width: 30%;
     height: auto;
     opacity: 1;
     transition: .3s
