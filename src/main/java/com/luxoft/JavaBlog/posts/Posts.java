@@ -23,4 +23,7 @@ public class Posts {
     @Column
     private String postText;
 
+    @Column
+    private byte[] image;
+
 }

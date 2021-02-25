@@ -8,4 +8,5 @@ public class PostsDto {
     private String postName;
     private String postTitle;
     private String postText;
+    private byte[] image;
 }

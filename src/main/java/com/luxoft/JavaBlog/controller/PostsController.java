@@ -36,10 +36,10 @@ public class PostsController {
         log.info("Handling find all posts request");
         return postsService.openPost(id);
     }
-    /*@GetMapping("/findByEmail")
-    public PostsDto findByEmail(@RequestParam String email) {
-        log.info("Handling find by email request: " + email);
-        return postsService.findByEmail(email);
+    /*@GetMapping("/findByPostId")
+    public PostsDto findById(@RequestParam Integer postId) {
+        log.info("Handling find by id request: " + postId);
+        return postsService.findById(postId);
     } */
 
     @DeleteMapping("/delete/{postId}")

@@ -41,16 +41,18 @@ public class DefaultPostsService implements PostsService {
         openPost = postsRepo.findById(id).orElseThrow(() -> new UnauthorizedPostException("String"));
         return openPost;
     }
-    public void deleteUser(Integer postId) {
+    public void deletePost(Integer postId) {
         postsRepo.deleteById(postId);
     }
-    /*public PostsDto findByEmail(String email) {
-        Posts posts = postsRepo.findByEmail(email);
+
+    /*public PostsDto findByPostId(Integer postId) {
+        Posts posts = postsRepo.findById(postId);
         if (posts != null) {
             return postsConverter.fromPostToPostDto(posts);
         }
         return null;
-    } */
+    }*/
+
     public List<PostsDto> findAll() {
         return postsRepo.findAll()
                 .stream()
