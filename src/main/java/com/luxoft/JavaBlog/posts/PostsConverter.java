@@ -12,6 +12,7 @@ public class PostsConverter {
         posts.setPostName(postsDTO.getPostName());
         posts.setPostTitle(postsDTO.getPostTitle());
         posts.setPostText(postsDTO.getPostText());
+        posts.setPostImage(postsDTO.getPostImage());
         return posts;
     }
     public PostsDto fromPostToPostDto(Posts posts) {
@@ -20,6 +21,7 @@ public class PostsConverter {
         postsDto.setPostName(posts.getPostName());
         postsDto.setPostTitle(posts.getPostTitle());
         postsDto.setPostText(posts.getPostText());
+        postsDto.setPostImage(posts.getPostImage());
         return postsDto;
     }
 }

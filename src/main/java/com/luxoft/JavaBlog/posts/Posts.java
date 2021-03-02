@@ -24,6 +24,7 @@ public class Posts {
     private String postText;
 
     @Column
-    private byte[] image;
+    @Lob
+    private byte[] postImage;
 
 }

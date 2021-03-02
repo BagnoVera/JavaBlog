@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>New post</title>
@@ -39,12 +39,13 @@
     <input type="text" name="name" id="post_title">
     <label for="post_text">Ваш пост</label>
     <textarea required placeholder="Чем хотите поделиться с пользователями?" name="post" id="post_text" rows="5" cols="20"></textarea>
-    <input type="file" class="upload" id="photo-upload"/>
-    <button onclick="newPost(), location.reload()">Опубликовать</button>
+    <input type="file" id="photo-upload" class="upload"/>
+    <!--<button onclick="newPost()">Опубликовать</button> -->
+    <button onclick="newPost(), location.reload()">Publish</button>
 </div>
 
 <script src="postsFunction.js"></script>
-    <script>
+    <!--<script>
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -82,7 +83,8 @@
             //$('.buttonSubmitImg').show();
             //CropResult.isUpload = true;
         });
-    </script>
+    </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.4.0/js/canvas-to-blob.min.js"></script>
 </div>
 </body>
 </html>

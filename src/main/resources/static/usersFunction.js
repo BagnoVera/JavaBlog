@@ -1,7 +1,7 @@
 function loadUsers() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var users = JSON.parse(this.responseText);
             var html = '<tr>\n' +
                 '        <th>User id</th>\n' +

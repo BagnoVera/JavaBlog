@@ -11,4 +11,5 @@ public interface PostsService {
 
     List<PostsDto> findAll();
     Posts openPost(Integer id);
+
 }

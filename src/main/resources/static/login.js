@@ -2,6 +2,28 @@
 //*********** Проверка полей формы логина на валидность
 //*********** ajax-запрос на авторизацию
 //================================================================//
+function showPopup(text, top, success) {
+
+    if (success) {
+        $('.error-holder').addClass('error-holder-success');
+    } else {
+        $('.error-holder').removeClass('error-holder-success');
+    }
+    $('.error-holder').css({"top":"" + top + "px", "z-index":"999999"});
+    $('.error-holder span').text(text);
+
+    $('.error-holder').fadeIn(function(){
+        hideError();
+    });
+}
+function showError(text, top){
+
+    showPopup(text, top, false);
+}
+function showSuccess(text, top){
+
+    showPopup(text, top, true);
+}
 
 $(document).ready(function(){
 
@@ -38,9 +60,26 @@ $(document).ready(function(){
         } else if(!filterPassword.test(data.password)) {
             showError('Недопустимые символы в пароле', 50); */
         } else {
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                error: function(){
+                    showError('Неверное имя или пароль!', errorTopMargin);
+                }
+            }).done(function(data){
 
+                if (data.link){
+                    window.location.href = data.link;
+                } else {
+                    showError('Неверное имя или пароль!', errorTopMargin);
+                }
+
+            })
+                }
+                })
             //----------------------- ajax-запрос на авторизацию
             showSuccess('Авторизация', 50);
-        }
+
     })
-});

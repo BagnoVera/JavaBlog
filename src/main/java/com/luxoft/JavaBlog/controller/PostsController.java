@@ -8,7 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -20,9 +26,20 @@ public class PostsController {
     private final PostsService postsService;
 
     @PostMapping("/save")
-    public void savePosts(@RequestBody PostsDto postsDTO) throws UnauthorizedPostException {
-        log.info("Handling save posts: " + postsDTO);
-        postsService.savePost(postsDTO);
+    public void savePosts(@RequestParam ("postName") String name, @RequestParam ("postTitle") String title,
+                          @RequestParam ("postText") String text, @RequestParam("file") MultipartFile image)
+            throws UnauthorizedPostException {
+        PostsDto postsdto = new PostsDto();
+        postsdto.setPostName(name);
+        postsdto.setPostTitle(title);
+        postsdto.setPostText(text);
+        try {
+            postsdto.setPostImage(image.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("Handling save posts: " + postsdto);
+        postsService.savePost(postsdto);
     }
 
     @GetMapping("/findAll")

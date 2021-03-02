@@ -1,44 +1,71 @@
-class PostIt{
-
-}
-
 function newPost() {
-    var namePost = document.getElementById("post_name").value;
+    var postName = document.getElementById("post_name").value;
     var postTitle = document.getElementById("post_title").value;
-    var newPost = document.getElementById("post_text").value;
+    var postText = document.getElementById("post_text").value;
+    //var postImage = document.getElementById("post_image").value;
+    var file = document.getElementById("photo-upload").files[0];
+    var formData = new FormData();
+    console.log(file);
+    formData.append("postName", postName);
+    formData.append("postTitle", postTitle);
+    formData.append("postText", postText);
+    formData.append("file", file);
+
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
     xmlhttp.open("POST", "http://localhost:8080/posts/save");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({postName: namePost, postTitle: postTitle, postText: newPost}));
+    /*xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");*/
+    xmlhttp.send(formData);
 }
 
-function loadPosts(){
+class Post{
+    constructor(postName, postTitle, postText, postImage) {
+        this.postName = postName;
+        this.postTitle = postTitle;
+        this.postText = postText;
+        this.postImage = postImage;
+    }
+}
+
+function downloadPosts(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var posts = JSON.parse(this.responseText);
-            var html = '<tr>\n' +
-                '        <th>User id</th>\n' +
-                '        <th>User name</th>\n' +
-                '        <th>User passwd</th>\n' +
-                '        <th>User email</th>\n' +
-                '        <th>Delete</th>\n' +
-                '    </tr>';
+            var html;
             for (var i = 0; i < posts.length; i++) {
                 var post = posts[i];
-                console.log(post);
-                html = html + '<tr><td>' + post.id + '</td>\n' +
-                    '        <td>' + post.name + '</td>\n' +
-                    '        <td>' + post.title + '</td>\n' +
-                    '        <td>' + post.text + '</td>' +
-                    '        <td><button onclick="deletePost(' + post.id + '), location.reload();">Delete</button></td></tr>';
+                console.log(post.postImage);
+                document.getElementById("ItemPreview").src = document.getElementById("ItemPreview").src + "data:image/png;base64," + post.postImage;
+
+                html = html + '<div>\n' +
+                    '            <a href="article/{{i}}.html"><img id="ItemPreview" width="50" height="30" alt="Java"></a>\n' +
+                    '            <div class="details">\n' +
+                '                <h2>'+ post.postTitle +'</h2>\n' +
+                '                <p>'+ post.postText +'</p>\n' +
+                '                <p>' + post.postName +'</p>\n' +
+                    '            </div>\n' +
+                    '\n' +
+                    '        </div>';
+                //var newPost = document.createElement(<div></div>)
+
 
             }
-            document.getElementById("usersList").innerHTML = html;
+            document.getElementById("postsList").innerHTML = html;
         }
-    };
+    }
     xhttp.open("GET", "http://localhost:8080/posts/findAll", true);
     xhttp.send();
 
 }
+/* олучаем картинку на клиенте
+<img id="red-dot" alt="Red dot">
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/base64/red-dot');
+        xhr.onload = function() {
+        var img = document.getElementById("red-dot");
+        img.src = xhr.responseText;
+    };
+        xhr.send();
+    </script>*/

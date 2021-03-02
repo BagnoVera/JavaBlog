@@ -66,6 +66,7 @@
 <div class="article-holder">
     <!-- Статья -->
     <article>
+
         <a href="article.html">
             <img src="images/original.jpg" width="50" height="30" alt="Кто пишет на Java - тот счастлив">
             <div class="details">
@@ -74,12 +75,27 @@
             </div>
 
         </a>
+
+    </article>
+    <!-- Статья -->
+    <article>
+
+        <a href="article.html">
+            <img src="images/original.jpg" width="50" height="30" alt="Кто пишет на Java - тот счастлив">
+            <div class="details">
+                <h2 >Java. Сложно. Непривычно. Интересно.</h2>
+                <p>Кто не работает - тот не пьет кофе</p>
+            </div>
+
+        </a>
+
     </article>
     <!-- Статья КОНЕЦ -->
 
 <h1>HTML Table</h1>
 
 <table id="usersList"></table>
+
 <!--Создаем пользователя -->
 <div>
     <label for="user_name">Имя пользователя</label>
@@ -90,12 +106,11 @@
     <input id="user_passwd" placeholder="User password">
     <button onclick="createUser(), location.reload()">Create user</button>
 </div>
-
 <div>
 <input id="search_field">
 <button onclick="searchByEmail()">Search by Email</button>
 </div>
-<table id="commentList"></table>
+<div id="postsList"></div>
 <!--Текст поста -->
 </div>
 
@@ -103,6 +118,7 @@
 <script src="usersFunction.js"></script>
 <script src="commentsFunction.js"></script>
 <script src="enhanced.js"></script>
+<script src="postsFunction.js"></script>
 
 
 <script>
@@ -131,7 +147,7 @@
     }*/
 
     loadUsers();
-    loadPosts();
+    downloadPosts();
     //loadComments();
 
 </script>

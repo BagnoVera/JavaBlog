@@ -31,12 +31,22 @@
                     <input type="password" id="pass">
                 </div>
                 <div class="input-row">
-                    <div class="b-login button green">Войти</div>
+                    <div class="b-login button green" onclick="auth">Войти</div>
                 </div>
             </div>
             <!-- Форма входа КОНЕЦ -->
         </div>
     </div>
+    <script id="auth">var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var users = JSON.parse(this.responseText);
+            if (data.username === user.name && data.passwd === user.passwd) {
+                alert("авторизация успешна!");
+            }
+        }
+    }
+    </script>
     <!-- footer -->
     <footer>
         <small>JavaBlog</small>
