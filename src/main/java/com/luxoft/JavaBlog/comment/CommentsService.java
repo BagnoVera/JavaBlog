@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface CommentsService {
     void saveComment(CommentsDto commentsDto) ;
+    List <CommentsDto> findAllComments(Integer postId);
 
     /*void deleteComment(Integer commentId);
 

@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,15 +23,26 @@ public class CommentsController {
     private final CommentsService commentsService;
 
     @PostMapping("/save")
-    public void saveComments(@RequestBody CommentsDto commentsDTO) throws UnauthorizedCommentException {
-        log.info("Handling save comments: " + commentsDTO);
-        commentsService.saveComment(commentsDTO);
+    public void saveComments(@RequestParam ("commentName") String name, @RequestParam ("commentText") String text,
+                             @RequestParam ("commentPostId") Integer id, @RequestParam("file") MultipartFile image) throws UnauthorizedCommentException {
+        CommentsDto commentsDto = new CommentsDto();
+        commentsDto.setCommentName(name);
+        commentsDto.setCommentText(text);
+        commentsDto.setCommentPostId(id);
+        try {
+            commentsDto.setCommentImage(image.getBytes());
+            // commentsDto.setPostImageBase64(Base64.getEncoder().encodeToString(image.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("Handling save posts: " + commentsDto);
+        commentsService.saveComment(commentsDto);
     }
 
-    @GetMapping("/findAll")
-    public List<CommentsDto> findAllComments() {
+    @GetMapping("/findAll/{postId}")
+    public List<CommentsDto> findAllComments(@PathVariable @RequestBody Integer postId) {
         log.info("Handling find all comments request");
-        return commentsService.findAll();
+        return commentsService.findAllComments(postId);
     }
 
     /*@GetMapping("/findByEmail")

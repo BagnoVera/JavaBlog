@@ -14,17 +14,10 @@ function newPost() {
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
     xmlhttp.open("POST", "http://localhost:8080/posts/save");
-    /*xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");*/
+    //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
     xmlhttp.send(formData);
-}
+    window.location.href = 'http://localhost:8080/index.html';
 
-class Post{
-    constructor(postName, postTitle, postText, postImage) {
-        this.postName = postName;
-        this.postTitle = postTitle;
-        this.postText = postText;
-        this.postImage = postImage;
-    }
 }
 
 function downloadPosts(){
@@ -32,23 +25,21 @@ function downloadPosts(){
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var posts = JSON.parse(this.responseText);
-            var html;
+            var html = '';
             for (var i = 0; i < posts.length; i++) {
                 var post = posts[i];
                 console.log(post.postImage);
-                document.getElementById("ItemPreview").src = document.getElementById("ItemPreview").src + "data:image/png;base64," + post.postImage;
-
-                html = html + '<div>\n' +
-                    '            <a href="article/{{i}}.html"><img id="ItemPreview" width="50" height="30" alt="Java"></a>\n' +
-                    '            <div class="details">\n' +
-                '                <h2>'+ post.postTitle +'</h2>\n' +
-                '                <p>'+ post.postText +'</p>\n' +
-                '                <p>' + post.postName +'</p>\n' +
-                    '            </div>\n' +
-                    '\n' +
-                    '        </div>';
-                //var newPost = document.createElement(<div></div>)
-
+                var newImg = document.createElement("img");
+                newImg.id = "ItemPreview" + i;
+                var j = i+1;
+                html = html + `<div>
+                    <a href="article.html?id=${j}"> <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="100" height="70" alt="Java"></a>
+                    <div class="details">+
+                        <h2>${post.postTitle}</h2>
+                        <p>${post.postText}</p> 
+                        <p>${post.postName}</p>
+                    </div>
+                    </div>`
 
             }
             document.getElementById("postsList").innerHTML = html;
@@ -58,14 +49,10 @@ function downloadPosts(){
     xhttp.send();
 
 }
-/* олучаем картинку на клиенте
-<img id="red-dot" alt="Red dot">
-    <script>
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/base64/red-dot');
-        xhr.onload = function() {
-        var img = document.getElementById("red-dot");
-        img.src = xhr.responseText;
-    };
-        xhr.send();
-    </script>*/
+
+function deletePost(postId) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://localhost:8080/posts/delete/" + postId, true);
+    xhttp.send();
+    loadUsers();
+}

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -35,11 +36,13 @@ public class PostsController {
         postsdto.setPostText(text);
         try {
             postsdto.setPostImage(image.getBytes());
+           // postsdto.setPostImageBase64(Base64.getEncoder().encodeToString(image.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         log.info("Handling save posts: " + postsdto);
         postsService.savePost(postsdto);
+
     }
 
     @GetMapping("/findAll")
@@ -50,7 +53,7 @@ public class PostsController {
 
     @GetMapping("/article/{id}")
     public Posts openPost(@PathVariable @RequestBody Integer id) {
-        log.info("Handling find all posts request");
+        log.info("Handling find all articles request");
         return postsService.openPost(id);
     }
     /*@GetMapping("/findByPostId")

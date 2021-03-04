@@ -45,5 +45,7 @@ public class UsersController {
         usersService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
+
+
 }
 

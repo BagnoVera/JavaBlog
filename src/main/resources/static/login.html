@@ -43,6 +43,8 @@
             var users = JSON.parse(this.responseText);
             if (data.username === user.name && data.passwd === user.passwd) {
                 alert("авторизация успешна!");
+                xhttp.open("GET", "http://localhost:8080/users/findAll", true);
+                xhttp.send();
             }
         }
     }

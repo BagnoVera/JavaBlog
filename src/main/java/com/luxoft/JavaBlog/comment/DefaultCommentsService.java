@@ -34,6 +34,14 @@ public class DefaultCommentsService implements CommentsService {
         Comments savedComment = commentsConverter.fromCommentDtoToComment(commentsDto);
         commentsRepo.save(savedComment);
     }
+
+    @Override
+    public List<CommentsDto> findAllComments(Integer postId) {
+        List<Comments> comments = commentsRepo.findAllComments(postId);
+        return comments.stream().map(commentsConverter::fromCommentToCommentDto).collect(Collectors.toList());
+
+    }
+
     public void deleteUser(Integer commentId) {
         commentsRepo.deleteById(commentId);
     }
