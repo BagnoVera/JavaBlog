@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,15 @@ public class DefaultPostsService implements PostsService {
     private PostsRepo postsRepo;
     @Autowired
     private PostsConverter postsConverter;
+
+
+    private static final String url = "jdbc:mysql://localhost:3306/javablog?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false";
+    private static final String user = "root";
+    private static final String password = "admin";
+
+    private static Connection con;
+    private static Statement stmt;
+    private static ResultSet rs;
 
     public DefaultPostsService() {
     }
@@ -41,6 +51,46 @@ public class DefaultPostsService implements PostsService {
         openPost = postsRepo.findById(id).orElseThrow(() -> new UnauthorizedPostException("String"));
         return openPost;
     }
+
+    public boolean findPost(String title){
+        String query = "SELECT CASE when post_title=" +"'" + title + "'"+
+                " then 1 else 0 end as ID from javablog.users where post_title='" + title + "';";
+
+        Integer title1 = 0;
+        System.out.println(query);
+        try {
+            // opening database connection to MySQL server
+            con = DriverManager.getConnection(url, user, password);
+
+            // getting Statement object to execute query
+            stmt = con.createStatement();
+
+            // executing SELECT query
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                title1 = rs.getInt(1);
+                System.out.println(title1);
+                System.out.println("Post found " + title);
+            }
+
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+            if (title1 == 1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+    }
+
     public void deletePost(Integer postId) {
         postsRepo.deleteById(postId);
     }

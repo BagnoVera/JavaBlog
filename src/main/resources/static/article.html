@@ -29,22 +29,19 @@
                 </ul>
             </nav>
         </div>
+        <div id="post"></div>
+        <div id="comment"></div>
     </header>
-</div>
-<div id="post"></div>
-<div id="comment"></div>
-
         <!-- Меню категории КОНЕЦ -->
-
-
-    <div>
-        <label for="comment_name">Имя</label>
-        <input type="text" name="name" id="comment_name">
-        <label for="comment_text">Комментарий</label>
-        <textarea required placeholder="Что думаете?" name="comment" id="comment_text" rows="5" cols="20"></textarea>
-        <input type="file" id="photo-upload" class="upload"/>
-        <button onclick="newComment(), location.reload()">Опубликовать</button>
-    </div>
+<div>
+    <label for="comment_name">Имя</label>
+    <input type="text" name="name" id="comment_name">
+    <label for="comment_text">Комментарий</label>
+    <textarea required placeholder="Что думаете?" name="comment" id="comment_text" rows="5" cols="20"></textarea>
+    <input type="file" id="photo-upload" class="upload"/>
+    <button onclick="newComment(), location.reload()">Опубликовать</button>
+</div>
+</div>
 <script src="articleFunction.js"></script>
 <!--<script src="commentsFunction.js"></script>-->
 <script>downloadArticle();</script>

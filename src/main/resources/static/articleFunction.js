@@ -26,6 +26,7 @@ function downloadArticle() {
     xhttp.send();
 
 
+
     //Загрузка комментариев
     var xhttpcom = new XMLHttpRequest();
     xhttpcom.onreadystatechange = function () {
@@ -66,14 +67,20 @@ function newComment(){
     var formData = new FormData();
     console.log(file);
     formData.append("commentPostId", idPost);
-    formData.append("commentName", nameComment);
     formData.append("commentText", newComment);
     formData.append("file", file);
+    if (localStorage.getItem("username") !== null){
+        formData.append("commentName", localStorage.getItem("username"));
 
+    }
+    else{
+        formData.append("commentName", nameComment);
+    }
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
     xmlhttp.open("POST", "http://localhost:8080/comments/save/");
     //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
     xmlhttp.send(formData);
     //loadComments();
+
 
 }

@@ -25,61 +25,31 @@ function showSuccess(text, top){
     showPopup(text, top, true);
 }
 
-$(document).ready(function(){
+function auth2() {
+    console.log("Starting auth2 method");
+    var email = document.getElementById("uname").value;
+    var password = document.getElementById("psw").value;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "http://localhost:8080/users/findByEmail", true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var users = this.responseText;
+            console.log(users);
+            if (users === "true") {
+                //alert("авторизация успешна!");
+                console.log("Success!");
+                localStorage.setItem("username", email);
+            }
 
-    //---------------------------- фильтры для проверки полей на недопустимые символы (отключены)
-    //---------------------------- https://www.sitepoint.com/expressions-javascript/
-    //var filterUsername = /^([a-zA-Z0-9_\-])+$/;
-    //var filterPassword = /^[a-zA-Z0-9!%&@#$\^*?_~+]+$/;
-
-    $('#pass').on('keyup', function(e){
-        //---------------------------- если пользователь нажал enter
-        if (e.keyCode === 13){
-            $('.b-login').click();
         }
-    });
+        if (this.status !== 200) {
+            console.log(this.status, this.responseText);
+        }
 
-    //=========================== Кнопка войти ==========================//
+        }
 
-    $('.b-login').on("click", function(){
+    xmlhttp.send(JSON.stringify({email: email, passwd: password}));
+    console.log("Sending creds");
+}
 
-        //---------------------------- параметры для авторизации
-        var data = {};
-        data.username = $('#username').val();
-        data.password = $('#pass').val();
-
-        if (data.username === ''){
-            //-------------------- showError(text, top) функция для отображения ошибки
-            //-------------------- text - текст сообщения
-            //-------------------- top - отступ от верха страницы
-            showError('Пожалуйста введите свое имя!', 50);
-        } else if (data.password === ''){
-            showError('Пожалуйста введите свой пароль!', 50);
-        /*} else if (!filterUsername.test(data.username)){
-            showError('Недопустимые символы в имени', 50);
-        } else if(!filterPassword.test(data.password)) {
-            showError('Недопустимые символы в пароле', 50); */
-        } else {
-            $.ajax({
-                url: '/login',
-                type: 'POST',
-                dataType: 'json',
-                data: data,
-                error: function(){
-                    showError('Неверное имя или пароль!', errorTopMargin);
-                }
-            }).done(function(data){
-
-                if (data.link){
-                    window.location.href = data.link;
-                } else {
-                    showError('Неверное имя или пароль!', errorTopMargin);
-                }
-
-            })
-                }
-                })
-            //----------------------- ajax-запрос на авторизацию
-            showSuccess('Авторизация', 50);
-
-    })

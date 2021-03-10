@@ -8,6 +8,8 @@ public interface PostsService {
     /*void deleteComment(Integer commentId);
 
     CommentsDto findByEmail(String commentEmail); */
+    boolean findPost(String title);
+
 
     List<PostsDto> findAll();
     Posts openPost(Integer id);

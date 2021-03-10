@@ -50,7 +50,7 @@
                     <a href="index.html" class="active">Блог о Java</a>
                 </li>
                 <li>
-                    <a href="login.html">Войти</a>
+                    <a href="login2.html">Войти</a>
                 </li>
                 <li>
                     <a href="createNewPost.html">Создать новый пост</a>
@@ -91,14 +91,19 @@
     <input id="user_email" placeholder="User email">
     <label for="user_passwd">Пароль</label>
     <input id="user_passwd" placeholder="User password">
-    <button onclick="createUser(), location.reload()">Create user</button>
+    <button onclick="createUser(), location.reload()">Создать пользователя</button>
 </div>
 <div>
-<input id="search_field">
-<button onclick="searchByEmail()">Search by Email</button>
+    <input id="search_field">
+    <button onclick="searchByEmail()">Поиск пользователя по Email</button>
+    <p id="search_result"></p>
+</div>
+<div>
+    <input id="search_post">
+    <button onclick="searchPost()">Поиск поста</button>
+    <p id="search_post_result"></p>
 </div>
 
-<!--Текст поста -->
 </div>
 
 
@@ -107,30 +112,24 @@
 <script src="postsFunction.js"></script>
 
 <script>
-    /*function searchByEmail() {
-        var email = document.getElementById("search_field").value;
+    function searchPost() {
+        var title = document.getElementById("search_post").value;
         var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "http://localhost:8080/posts/findPost?id=" + title, true);
         xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var user = JSON.parse(this.responseText);
-                var html = '<tr>\n' +
-                    '        <th>User id</th>\n' +
-                    '        <th>User name</th>\n' +
-                    '        <th>User email</th>\n' +
-                    '        <th>Delete</th>\n' +
-                    '    </tr>';
-                html = html + '<tr><td>' + user.id + '</td>\n' +
-                    '        <td>' + user.name + '</td>\n' +
-                    '        <td>' + user.email + '</td>' +
-                    '        <td><button onclick="deleteUser(' + user.id + '); ' +
-                    'location.href='index.html';">Delete</button></td></tr>';
-                document.getElementById("usersList").innerHTML = html;
+            if (this.readyState === 4 && this.status === 200) {
+                var responde = JSON.parse(this.responseText);
+                if (responde === "true") {
+                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " существует по ссылке: ";
+                } else {
+                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " не существует!";
+                }
+
             }
         };
-        xhttp.open("GET", "http://localhost:8080/users/findByEmail?email=" + email, true);
-        xhttp.send();
-    }*/
 
+        xhttp.send();
+    }
     loadUsers();
     downloadPosts();
     //loadComments();

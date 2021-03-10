@@ -5,7 +5,7 @@ function newPost() {
     //var postImage = document.getElementById("post_image").value;
     var file = document.getElementById("photo-upload").files[0];
     var formData = new FormData();
-    console.log(file);
+    //console.log(file);
     formData.append("postName", postName);
     formData.append("postTitle", postTitle);
     formData.append("postText", postText);
@@ -16,6 +16,14 @@ function newPost() {
     xmlhttp.open("POST", "http://localhost:8080/posts/save");
     //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
     xmlhttp.send(formData);
+    //window.confirm("Ваш пост " + PostTitle + "опубликован");
+    // if (window.confirm("Ваш пост " + PostTitle + "опубликован")) {
+    //     console.log("you pressed OK!");
+    // } else {
+    //     console.log("You pressed Cancel!");
+    // }
+    document.getElementById("demo").innerHTML = txt;
+
     window.location.href = 'http://localhost:8080/index.html';
 
 }
@@ -28,7 +36,7 @@ function downloadPosts(){
             var html = '';
             for (var i = 0; i < posts.length; i++) {
                 var post = posts[i];
-                console.log(post.postImage);
+                //console.log(post.postImage);
                 var newImg = document.createElement("img");
                 newImg.id = "ItemPreview" + i;
                 var j = i+1;

@@ -44,6 +44,11 @@ public class PostsController {
         postsService.savePost(postsdto);
 
     }
+    @GetMapping("/findPost")
+    public boolean findPost(String title) {
+        log.info("Handling find a posts request");
+        return postsService.findPost(title);
+    }
 
     @GetMapping("/findAll")
     public List<PostsDto> findAllPosts() {

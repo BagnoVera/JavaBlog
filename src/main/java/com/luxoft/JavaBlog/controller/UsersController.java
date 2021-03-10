@@ -2,6 +2,7 @@ package com.luxoft.JavaBlog.controller;
 
 import com.luxoft.JavaBlog.comment.CommentsDto;
 import com.luxoft.JavaBlog.comment.CommentsService;
+import com.luxoft.JavaBlog.users.Users;
 import com.luxoft.JavaBlog.users.UsersDto;
 import com.luxoft.JavaBlog.users.ValidationException;
 import com.luxoft.JavaBlog.users.UsersService;
@@ -22,9 +23,9 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping("/save")
-    public UsersDto saveUsers(@RequestBody UsersDto UsersDTO) throws ValidationException {
-        log.info("Handling save users: " + UsersDTO);
-        return usersService.save(UsersDTO);
+    public UsersDto saveUsers(@RequestBody UsersDto usersDTO) throws ValidationException {
+        log.info("Handling save users: " + usersDTO);
+        return usersService.save(usersDTO);
     }
 
     @GetMapping("/findAll")
@@ -33,10 +34,17 @@ public class UsersController {
         return usersService.findAll();
     }
 
-    @GetMapping("/findByEmail")
-    public UsersDto findByEmail(@RequestParam String email) {
-        log.info("Handling find by email request: " + email);
-        return usersService.findByEmail(email);
+    @GetMapping("/findSearch")
+    public boolean findSearch(@RequestParam String email) {
+        log.info("Handling find a user request");
+        return usersService.findSearch(email);
+    }
+
+
+    @PostMapping("/findByEmail")
+    public boolean findByEmail(@RequestBody UsersDto usersDto) {
+        log.info("Handling find by email request: " + usersDto.getEmail());
+        return usersService.findByEmail(usersDto.getEmail(), usersDto.getPasswd());
     }
 
     @DeleteMapping("/delete/{id}")
