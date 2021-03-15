@@ -40,16 +40,24 @@ function auth2() {
                 //alert("авторизация успешна!");
                 console.log("Success!");
                 localStorage.setItem("username", email);
-            }
 
+            }
         }
         if (this.status !== 200) {
             console.log(this.status, this.responseText);
         }
-
         }
 
     xmlhttp.send(JSON.stringify({email: email, passwd: password}));
     console.log("Sending creds");
 }
-
+// function setCookie(){
+//
+//     // Задаем kittens cookie, будет потеряна при рестарте браузера:
+//     document.cookie("kittens","Seven Kittens");
+//
+//     // Задаем demoCookie (как в демо версии):
+//     document.cookie("demoCookie",text,{expires: 7, path: '/', domain: 'demo.tutorialzine.com'});
+//
+//     // "text" переменная которая содержит строку для сохранения
+//}

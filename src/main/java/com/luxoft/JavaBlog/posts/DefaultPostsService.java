@@ -1,12 +1,11 @@
 package com.luxoft.JavaBlog.posts;
 
-import com.luxoft.JavaBlog.posts.Posts;
-import com.luxoft.JavaBlog.posts.PostsConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,11 +51,14 @@ public class DefaultPostsService implements PostsService {
         return openPost;
     }
 
-    public boolean findPost(String title){
-        String query = "SELECT CASE when post_title=" +"'" + title + "'"+
-                " then 1 else 0 end as ID from javablog.users where post_title='" + title + "';";
+    public List<PostsDto> findPost(String title){
+        String query = "SELECT * FROM javablog.post where post_title = '" + title + "';";
 
-        Integer title1 = 0;
+        String title1 = "";
+        String name1 = "";
+        String text1 = "";
+        Integer id1 = 0;
+        List<PostsDto> newFindPost = new ArrayList<>();
         System.out.println(query);
         try {
             // opening database connection to MySQL server
@@ -69,7 +71,16 @@ public class DefaultPostsService implements PostsService {
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                title1 = rs.getInt(1);
+                PostsDto findPostNow = new PostsDto();
+                title1 = rs.getString("post_title");
+                name1 = rs.getString("post_name");
+                text1 = rs.getString("post_text");
+                id1 = rs.getInt("post_id");
+                findPostNow.setPostTitle(title1);
+                findPostNow.setPostName(name1);
+                findPostNow.setPostText(text1);
+                findPostNow.setPostId(id1);
+                newFindPost.add(findPostNow);
                 System.out.println(title1);
                 System.out.println("Post found " + title);
             }
@@ -81,12 +92,14 @@ public class DefaultPostsService implements PostsService {
             try { con.close(); } catch(SQLException se) { /*can't do anything */ }
             try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
             try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
-            if (title1 == 1){
-                return true;
+            if (!newFindPost.isEmpty()){
+                return newFindPost;
             }
             else{
-                return false;
+                System.out.println("Такого поста не существует!");
+                return newFindPost;
             }
+
         }
 
     }

@@ -79,9 +79,6 @@
     <!-- Статья КОНЕЦ -->
     <div id="postsList"></div>
 
-<h1>HTML Table</h1>
-
-<table id="usersList"></table>
 
 <!--Создаем пользователя -->
 <div>
@@ -115,7 +112,7 @@
     function searchPost() {
         var title = document.getElementById("search_post").value;
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/posts/findPost?id=" + title, true);
+        xhttp.open("GET", "http://localhost:8080/posts/findPost" + title, true);
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 var responde = JSON.parse(this.responseText);

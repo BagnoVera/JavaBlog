@@ -40,7 +40,6 @@ public class UsersController {
         return usersService.findSearch(email);
     }
 
-
     @PostMapping("/findByEmail")
     public boolean findByEmail(@RequestBody UsersDto usersDto) {
         log.info("Handling find by email request: " + usersDto.getEmail());

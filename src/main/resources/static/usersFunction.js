@@ -29,6 +29,9 @@ function loadUsers() {
 }
 function searchByEmail() {
     var email = document.getElementById("search_field").value;
+    var url = new URL("localhost:8080/index.html?email=1");
+    url.searchParams.set("email", email);
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:8080/users/findSearch?email=" + email, true);
     xhttp.onreadystatechange = function () {
@@ -46,6 +49,10 @@ function searchByEmail() {
             //     '        <td><button onclick="deleteUser(' + user.id + '); ' +
             //     'location.href='index.html';">Delete</button></td></tr>';
             if (responde === "true"){
+
+                //var url = new URL("localhost:8080/users/findSearch?email=");
+                //url.searchParams.append('email', email);
+
                 document.getElementById("search_result").innerHTML = "Пользователь " + email + " существует!";
             }
             else{document.getElementById("search_result").innerHTML = "Пользователь " + email + " не существует!";}
