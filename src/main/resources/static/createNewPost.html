@@ -41,11 +41,13 @@
     <textarea required placeholder="Чем хотите поделиться с пользователями?" name="post" id="post_text" rows="5" cols="20"></textarea>
     <input type="file" id="photo-upload" class="upload"/>
     <!--<button onclick="newPost()">Опубликовать</button> -->
-    <button onclick="newPost(), my_func(), location.reload()">Опубликовать</button>
+    <button onclick="newPost(), /*my_func(), */ location.reload()">Опубликовать</button>
 </div>
-    <div>
+    <!--<div>
         <button onclick="my_func()">Вызвать скрипт</button>
-    </div>
+    </div>-->
+    <h3>Здесь публикуются ошибки</h3>
+    <p id="error"></p>
 <script>
     function my_func(){
         if (window.confirm("Ваш пост опубликован")) {
@@ -54,10 +56,9 @@
                 console.log("You pressed Cancel!");
             }
     }
-
 </script>
 <script src="postsFunction.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.4.0/js/canvas-to-blob.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/3.4.0/js/canvas-to-blob.min.js"></script>-->
 </div>
 </body>
 </html>

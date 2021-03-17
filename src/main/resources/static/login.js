@@ -30,34 +30,52 @@ function auth2() {
     var email = document.getElementById("uname").value;
     var password = document.getElementById("psw").value;
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "http://localhost:8080/users/findByEmail", true);
+    xmlhttp.open("POST", "http://localhost:8080/users/login", true);
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            var users = this.responseText;
-            console.log(users);
-            if (users === "true") {
-                //alert("авторизация успешна!");
+            var responde = this.responseText;
+            console.log(responde);
+            if (responde === "true"){
+                setCookie(email, password);
                 console.log("Success!");
                 localStorage.setItem("username", email);
-
+                //Set-Cookie: user=email; path=/
+                window.location.href = "userpage.html";
+                console.log("Finally");
+                }
             }
         }
         if (this.status !== 200) {
             console.log(this.status, this.responseText);
         }
-        }
 
     xmlhttp.send(JSON.stringify({email: email, passwd: password}));
     console.log("Sending creds");
+
 }
-// function setCookie(){
-//
-//     // Задаем kittens cookie, будет потеряна при рестарте браузера:
-//     document.cookie("kittens","Seven Kittens");
-//
-//     // Задаем demoCookie (как в демо версии):
-//     document.cookie("demoCookie",text,{expires: 7, path: '/', domain: 'demo.tutorialzine.com'});
-//
-//     // "text" переменная которая содержит строку для сохранения
-//}
+
+function setCookie(name, value, options = {}) {
+
+    options = {
+        path: '/',
+        // при необходимости добавьте другие значения по умолчанию
+        //...options
+    };
+
+    // if (options.expires instanceof Date) {
+    //     options.expires = options.expires.toUTCString();
+    // }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+}

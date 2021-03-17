@@ -1,8 +1,5 @@
 package com.luxoft.JavaBlog.controller;
 
-import com.luxoft.JavaBlog.comment.CommentsDto;
-import com.luxoft.JavaBlog.comment.CommentsService;
-import com.luxoft.JavaBlog.users.Users;
 import com.luxoft.JavaBlog.users.UsersDto;
 import com.luxoft.JavaBlog.users.ValidationException;
 import com.luxoft.JavaBlog.users.UsersService;
@@ -40,10 +37,10 @@ public class UsersController {
         return usersService.findSearch(email);
     }
 
-    @PostMapping("/findByEmail")
-    public boolean findByEmail(@RequestBody UsersDto usersDto) {
+    @PostMapping("/login")
+    public boolean login(@RequestBody UsersDto usersDto) {
         log.info("Handling find by email request: " + usersDto.getEmail());
-        return usersService.findByEmail(usersDto.getEmail(), usersDto.getPasswd());
+        return usersService.login(usersDto.getEmail(), usersDto.getPasswd());
     }
 
     @DeleteMapping("/delete/{id}")

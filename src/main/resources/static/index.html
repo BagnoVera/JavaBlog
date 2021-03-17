@@ -64,21 +64,8 @@
 
 <h1>Добро пожаловать на JavaBlog</h1>
 <div class="article-holder">
-    <!-- Статья -->
-<!--    <article>-->
 
-<!--        <a href="article.html">-->
-<!--            <img src="images/original.jpg" width="50" height="30" alt="Кто пишет на Java - тот счастлив">-->
-<!--            <div class="details">-->
-<!--                <h2>Java. Сложно. Непривычно. Интересно.</h2>-->
-<!--                <p>Кто не работает - тот не пьет кофе</p>-->
-<!--            </div>-->
-
-<!--        </a>-->
-<!--    </article>-->
-    <!-- Статья КОНЕЦ -->
     <div id="postsList"></div>
-
 
 <!--Создаем пользователя -->
 <div>
@@ -95,39 +82,38 @@
     <button onclick="searchByEmail()">Поиск пользователя по Email</button>
     <p id="search_result"></p>
 </div>
-<div>
-    <input id="search_post">
-    <button onclick="searchPost()">Поиск поста</button>
-    <p id="search_post_result"></p>
-</div>
+<!--<div>-->
+<!--    <input id="search_post">-->
+<!--    <button onclick="searchPost()">Поиск поста</button>-->
+<!--    <p id="search_post_result"></p>-->
+<!--</div>-->
 
 </div>
 
 
 <script src="usersFunction.js"></script>
-<script src="commentsFunction.js"></script>
 <script src="postsFunction.js"></script>
 
 <script>
-    function searchPost() {
-        var title = document.getElementById("search_post").value;
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/posts/findPost" + title, true);
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                var responde = JSON.parse(this.responseText);
-                if (responde === "true") {
-                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " существует по ссылке: ";
-                } else {
-                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " не существует!";
-                }
-
-            }
-        };
-
-        xhttp.send();
-    }
-    loadUsers();
+    // function searchPost() {
+    //     var title = document.getElementById("search_post").value;
+    //     var xhttp = new XMLHttpRequest();
+    //     xhttp.open("GET", "http://localhost:8080/posts/findPost" + title, true);
+    //     xhttp.onreadystatechange = function () {
+    //         if (this.readyState === 4 && this.status === 200) {
+    //             var responde = JSON.parse(this.responseText);
+    //             if (responde === "true") {
+    //                 document.getElementById("search_post_result").innerHTML = "Пост " + title + " существует по ссылке: ";
+    //             } else {
+    //                 document.getElementById("search_post_result").innerHTML = "Пост " + title + " не существует!";
+    //             }
+    //
+    //         }
+    //     };
+    //
+    //     xhttp.send();
+    // }
+    //loadUsers();
     downloadPosts();
     //loadComments();
 

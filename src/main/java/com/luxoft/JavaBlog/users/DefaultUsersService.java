@@ -46,7 +46,7 @@ public class DefaultUsersService implements UsersService{
     }
 
 
-    public boolean findByEmail(String email, String passwd) {
+    public boolean login(String email, String passwd) {
         String query = "SELECT CASE when email=" +"'" + email + "'"+" and passwd=" + "'" + passwd + "'" +
                 " then 1 else 0 end as ID from javablog.users where email='" + email + "';";
         String passwdSQL = "";

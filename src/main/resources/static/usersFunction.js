@@ -26,40 +26,24 @@ function loadUsers() {
     xhttp.open("GET", "http://localhost:8080/users/findAll", true);
     xhttp.send();
 
+
+
 }
 function searchByEmail() {
     var email = document.getElementById("search_field").value;
     var url = new URL("localhost:8080/index.html?email=1");
     url.searchParams.set("email", email);
-
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "http://localhost:8080/users/findSearch?email=" + email, true);
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var responde = this.responseText;
-            // var html = '<tr>\n' +
-            //     '        <th>User id</th>\n' +
-            //     '        <th>User name</th>\n' +
-            //     '        <th>User email</th>\n' +
-            //     '        <th>Delete</th>\n' +
-            //     '    </tr>';
-            // html = html + '<tr><td>' + user.id + '</td>\n' +
-            //     '        <td>' + user.name + '</td>\n' +
-            //     '        <td>' + user.email + '</td>' +
-            //     '        <td><button onclick="deleteUser(' + user.id + '); ' +
-            //     'location.href='index.html';">Delete</button></td></tr>';
             if (responde === "true"){
-
-                //var url = new URL("localhost:8080/users/findSearch?email=");
-                //url.searchParams.append('email', email);
-
                 document.getElementById("search_result").innerHTML = "Пользователь " + email + " существует!";
             }
             else{document.getElementById("search_result").innerHTML = "Пользователь " + email + " не существует!";}
-
         }
-    };
-
+    }
     xhttp.send();
 }
 
@@ -80,5 +64,4 @@ function createUser() {
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.send(JSON.stringify({name: userName, passwd: userPasswd, email: userEmail}));
 
-    loadUsers();
 }

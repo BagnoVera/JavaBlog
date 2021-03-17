@@ -7,7 +7,7 @@ public interface UsersService {
 
     void deleteUser(Integer userId);
 
-    boolean findByEmail(String email, String passwd);
+    boolean login(String email, String passwd);
 
     List<UsersDto> findAll();
 

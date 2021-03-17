@@ -25,8 +25,6 @@ function downloadArticle() {
     xhttp.open("GET", "http://localhost:8080/posts/article/" + id, true);
     xhttp.send();
 
-
-
     //Загрузка комментариев
     var xhttpcom = new XMLHttpRequest();
     xhttpcom.onreadystatechange = function () {
@@ -64,23 +62,29 @@ function newComment(){
     var nameComment = document.getElementById("comment_name").value;
     var newComment = document.getElementById("comment_text").value;
     var file = document.getElementById("photo-upload").files[0];
-    var formData = new FormData();
-    console.log(file);
-    formData.append("commentPostId", idPost);
-    formData.append("commentText", newComment);
-    formData.append("file", file);
-    if (localStorage.getItem("username") !== null){
-        formData.append("commentName", localStorage.getItem("username"));
 
+    if (newComment === "") {
+        //document.getElementById("error").innerHTML = "Впишите название поста и текст!";
+        console.log("Нет поста и текста!");
+        setTimeout(function() {alert ('Нет текста комментария!'), 3000});
     }
-    else{
+    else if (nameComment === "") {
+        console.log("nameComment empty");
+        if (localStorage.getItem("username") === null) {
+            setTimeout(function () {alert('Нет имени!'), 3000});
+        }
+        else {
+            nameComment = localStorage.getItem("username");
+        }
+        var formData = new FormData();
+        console.log("Form data sending");
+        formData.append("commentPostId", idPost);
         formData.append("commentName", nameComment);
+        formData.append("commentText", newComment);
+        formData.append("file", file);
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("POST", "http://localhost:8080/comments/save/");
+        xmlhttp.send(formData);
     }
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://localhost:8080/comments/save/");
-    //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
-    xmlhttp.send(formData);
-    //loadComments();
-
-
 }
