@@ -42,9 +42,10 @@ public class DefaultCommentsService implements CommentsService {
 
     }
 
-    public void deleteUser(Integer commentId) {
+    public void deleteComment(Integer commentId) {
         commentsRepo.deleteById(commentId);
     }
+
     /*public CommentsDto findByEmail(String email) {
         Comments comments = commentsRepo.findByEmail(email);
         if (comments != null) {
@@ -52,6 +53,7 @@ public class DefaultCommentsService implements CommentsService {
         }
         return null;
     } */
+
     public List<CommentsDto> findAll() {
         return commentsRepo.findAll()
                 .stream()

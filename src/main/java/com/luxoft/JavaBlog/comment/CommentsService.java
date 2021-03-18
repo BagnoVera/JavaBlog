@@ -6,9 +6,9 @@ public interface CommentsService {
     void saveComment(CommentsDto commentsDto) ;
     List <CommentsDto> findAllComments(Integer postId);
 
-    /*void deleteComment(Integer commentId);
+    void deleteComment(Integer commentId);
 
-    CommentsDto findByEmail(String commentEmail); */
+    /*CommentsDto findByEmail(String commentEmail); */
 
     List<CommentsDto> findAll();
 }

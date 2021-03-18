@@ -42,6 +42,7 @@ function downloadArticle() {
                         <div class="details">
                         <h2>${comment.commentName}</h2>
                         <p>${comment.commentText}</p>
+                        <button onclick="deleteComment(${comment.commentId})">Удалить комментарий</button>
                         </div>
                         </div>`
 
@@ -87,4 +88,9 @@ function newComment(){
         xmlhttp.open("POST", "http://localhost:8080/comments/save/");
         xmlhttp.send(formData);
     }
+}
+function deleteComment(commentId){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", "http://localhost:8080/comments/delete/" + commentId, true);
+    xhttp.send();
 }

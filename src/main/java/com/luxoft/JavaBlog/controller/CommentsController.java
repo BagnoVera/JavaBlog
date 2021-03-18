@@ -51,10 +51,10 @@ public class CommentsController {
         return commentsService.findByEmail(email);
     } */
 
-    @DeleteMapping("/delete/{commentId}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteComments(@PathVariable Integer id) {
         log.info("Handling delete comment request: " + id);
-        // commentsService.deleteComment(id);
+        commentsService.deleteComment(id);
         return ResponseEntity.ok().build();
     }
 }
