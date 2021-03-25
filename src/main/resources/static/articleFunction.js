@@ -1,3 +1,4 @@
+//Загрузка текста поста - артикла
 function downloadArticle() {
     const queryString = window.location.search;
     console.log(queryString);
@@ -19,7 +20,7 @@ function downloadArticle() {
                     <p>${post.postText}</p>
                     <p>${post.postName}</p>
                     </div>
-                    </div>`
+                    </div>`;
             document.getElementById("post").innerHTML = html;
         }}
     xhttp.open("GET", "http://localhost:8080/posts/article/" + id, true);

@@ -1,79 +1,175 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="admin.css?version=1">
-</head>
-<body>
-    <!-- Login header КОНЕЦ -->
-    <header>
-        <div class="flex-row">
-            <div class="title">Введите свой логин и пароль</div>
-        </div>
-    </header>
-    <!-- Login header КОНЕЦ -->
-    <!-- Сообщение об ошибке -->
-    <div class="error-holder">
-        <span>Error</span>
-    </div>
-    <!-- Сообщение об ошибке КОНЕЦ -->
-    <div class="content">
-        <div class="holder">
-            <!-- Форма входа -->
-            <div class="login">
-                <div class="input-row">
-                    <label for="username">Логин</label>
-                    <input type="text" id="username">
-                </div>
-                <div class="input-row">
-                    <label for="pass">Пароль</label>
-                    <input type="password" id="pass">
-                </div>
+    <meta name="viewport" content="width=300px, initial-scale=1">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
 
-                <div class="input-row">
-                    <button class="b-login button green" onclick="auth()">Войти</button>
-                </div>
-            </div>
-            <button onclick="auth()">Вход в аккаунт</button>
-            <!-- Форма входа КОНЕЦ -->
-        </div>
-    </div>
-    <!-- footer -->
-    <footer>
-        <small>JavaBlog</small>
-    </footer>
-    <!-- footer КОНЕЦ -->
-<script src="login.js"></script>
-<script>
-    function auth() {
-        var email = document.getElementById("username").value;
-        var password = document.getElementById("pass").value;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                var users = this.responseText;
-                console.log(users);
-                if (users === true){
-                    alert("авторизация успешна!");
-                    console.log("Success!");
-                }
-                xmlhttp.open("POST", "http://localhost:8080/users/findByEmail", true);
-                xmlhttp.setRequestHeader("Content-Type", "application/json");
-                xmlhttp.send(JSON.stringify({email: email, passwd: password}));
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
+        /* Set a style for all buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
 
-                /*for (var i = 0; i < users.length; i++) {
-                    if (user === users[i].email && password === users[i].passwd) {
-                        alert("авторизация успешна!");
-                        xmlhttp.open("GET", "http://localhost:8080/users/findAll", true);
-                        xmlhttp.send();
-                    }
-                }*/
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 12px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 40%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {-webkit-transform: scale(0)}
+            to {-webkit-transform: scale(1)}
+        }
+
+        @keyframes animatezoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
             }
         }
-    }
-</script>
-</body>
+    </style>
+</head>
+<body>
 
+<h2>Login</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+<div id="id01" class="modal">
+
+    <div class="modal-content animate" >
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/logo.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="uname" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="psw" required>
+
+            <button onclick="auth2()">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+<script src="login.js"></script>
+</body>
 </html>

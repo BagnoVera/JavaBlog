@@ -25,10 +25,8 @@ function loadUsers() {
     };
     xhttp.open("GET", "http://localhost:8080/users/findAll", true);
     xhttp.send();
-
-
-
 }
+
 function searchByEmail() {
     var email = document.getElementById("search_field").value;
     var url = new URL("localhost:8080/index.html?email=1");

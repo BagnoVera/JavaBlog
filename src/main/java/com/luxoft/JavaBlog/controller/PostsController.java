@@ -36,7 +36,6 @@ public class PostsController {
         postsdto.setPostText(text);
         try {
             postsdto.setPostImage(image.getBytes());
-           // postsdto.setPostImageBase64(Base64.getEncoder().encodeToString(image.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,10 +43,10 @@ public class PostsController {
         postsService.savePost(postsdto);
 
     }
-    @GetMapping("/findPost/{id}")
-    public List<PostsDto> findPost(String title) {
+    @GetMapping("/findPost/{name}")
+    public List<PostsDto> findPost(@PathVariable @RequestParam (value = "name", required = true) String name) {
         log.info("Handling find a posts request");
-        return postsService.findPost(title);
+        return postsService.findPost(name);
     }
 
     @GetMapping("/findAll")

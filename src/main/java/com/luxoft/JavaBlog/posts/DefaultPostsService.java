@@ -51,8 +51,8 @@ public class DefaultPostsService implements PostsService {
         return openPost;
     }
 
-    public List<PostsDto> findPost(String title){
-        String query = "SELECT * FROM javablog.post where post_title = '" + title + "';";
+    public List<PostsDto> findPost(String name){
+        String query = "SELECT * FROM javablog.post where post_title = '" + name + "';";
 
         String title1 = "";
         String name1 = "";
@@ -76,13 +76,16 @@ public class DefaultPostsService implements PostsService {
                 name1 = rs.getString("post_name");
                 text1 = rs.getString("post_text");
                 id1 = rs.getInt("post_id");
+
                 findPostNow.setPostTitle(title1);
                 findPostNow.setPostName(name1);
                 findPostNow.setPostText(text1);
                 findPostNow.setPostId(id1);
+
                 newFindPost.add(findPostNow);
+
                 System.out.println(title1);
-                System.out.println("Post found " + title);
+                System.out.println("Post found " + name);
             }
 
         } catch (SQLException sqlEx) {

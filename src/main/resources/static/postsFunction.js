@@ -11,6 +11,7 @@ function newPost() {
     else if (postName === "") {
         if (localStorage.getItem("username") === null) {
             document.getElementById("error").innerHTML ="Впишите свое имя!";
+            console.log("Впишите ваше имя!")
         }
         else {
             postName = localStorage.getItem("username");
@@ -26,16 +27,6 @@ function newPost() {
         xmlhttp.send(formData);
     }
 
-    //window.confirm("Ваш пост " + PostTitle + "опубликован");
-    // if (window.confirm("Ваш пост " + PostTitle + "опубликован")) {
-    //     console.log("you pressed OK!");
-    // } else {
-    //     console.log("You pressed Cancel!");
-    // }
-    //document.getElementById("demo").innerHTML = txt;
-
-
-    //window.location.href = 'http://localhost:8080/index.html';
 }
 
 function downloadPosts(){
@@ -59,14 +50,12 @@ function downloadPosts(){
                         <p>${post.postName}</p>
                     </div>
                     </div>`
-
             }
             document.getElementById("postsList").innerHTML = html;
         }
     }
     xhttp.open("GET", "http://localhost:8080/posts/findAll", true);
     xhttp.send();
-
 }
 
 function deletePost(postId) {

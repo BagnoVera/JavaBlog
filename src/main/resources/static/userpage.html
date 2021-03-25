@@ -21,31 +21,96 @@
                     <a href="index.html" class="active">Блог о Java</a>
                 </li>
                 <li>
-                    <a href="login2.html">Войти</a>
-                </li>
-                <li>
                     <a href="createNewPost.html">Создать новый пост</a>
                 </li>
 
             </ul>
         </nav>
-<h1 id="welcome">Добро пожаловать домой!</h1>
     </header>
 </div>
 <body>
-
+<h1 id="welcome">Добро пожаловать домой!</h1>
+<button onclick="loadPosts()">Показать ваши посты</button>
+<p id="postsList"></p>
 <script>
-    function Hello(){
-        let html = "Добро пожаловать домой, " + user;
+
+    function loadPosts() {
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/posts/findByEmail?id=" + title, true);
+        xhttp.onreadystatechange = function () {
+            console.log("Start -if");
+            if (this.status !== 200) {
+                console.log(this.status, this.responseText);
+            }
+            if (this.readyState === 4 && this.status === 200) {
+                console.log("ready-state");
+                var posts = JSON.parse(this.responseText);
+                var html = '';
+
+                for (var i = 0; i < posts.length; i++) {
+                    console.log("start for");
+                    var post = posts[i];
+                    console.log(post);
+                    var newImg = document.createElement("img");
+                    newImg.id = "ItemPreview" + i;
+                    var j = i+1;
+                    html = html +
+                        `<div>
+                    <a href="article.html?id=${j}"> <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="100" height="70" alt="Java"></a>
+                    <div class="details">
+                        <h2>${post.postTitle}</h2>
+                        <p>${post.postText}</p>
+                        <p>${post.postName}</p>
+                         <button onclick="deletePost(${post.postId}), location.reload();">Delete</button>
+                    </div>
+                    </div>`;
+                }
+                document.getElementById("postsList").innerHTML = html;
+            }
+        }
+        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + localStorage.getItem("username"), true);
+        xhttp.send();
+    }
+
+    function Hello(){
+        let html = "Добро пожаловать домой, " + localStorage.getItem("username") + "!";
+        document.getElementById("welcome").innerText = html;
+    }
+    function showPosts() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + localStorage.getItem("username"), true);
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 var responde = JSON.parse(this.responseText);
-                document.getElementById("welcome").innerText = html;
+                var html = '';
+                // =
+                //
+                //     '<tr>\n' +
+                //     '        <th>Post id</th>\n' +
+                //     '        <th>Post name</th>\n' +
+                //     '        <th>Post title</th>\n' +
+                //     '        <th>Post text</th>\n' +
+                //    // '        <th>Post image</th>\n' +
+                //     '        <th>Delete</th>\n' +
+                //     '    </tr>';
+                for (var i = 0; i < responde.length; i++) {
+                    var post = responde[i];
+                    console.log(post);
+
+                    html = html + `<div>
+                    <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="200" height="140" alt="Java"></a>
+                    <div class="details">
+                    <h2>${post.postTitle}</h2>
+                    <p>${post.postText}</p>
+                    <p>${post.postName}</p>
+                    <button onclick="deletePost(${post.postId}), location.reload();">Delete</button>
+                    </div>
+                    </div>`;
+                }
+                document.getElementById("postsList").innerHTML = html;
             }
-    }
+        }
     }
 </script>
+<script>Hello()</script>
 </body>
 </html>
