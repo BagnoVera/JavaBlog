@@ -43,16 +43,17 @@ public class PostsController {
         postsService.savePost(postsdto);
 
     }
-    @GetMapping("/findPost/{name}")
-    public List<PostsDto> findPost(@PathVariable @RequestParam (value = "name", required = true) String name) {
-        log.info("Handling find a posts request");
-        return postsService.findPost(name);
-    }
 
     @GetMapping("/findAll")
     public List<PostsDto> findAllPosts() {
         log.info("Handling find all posts request");
         return postsService.findAll();
+    }
+
+    @GetMapping("/findPost/{name}")
+    public List<PostsDto> findPost(@RequestParam (value = "name", required = true) String name) {
+        log.info("Handling find a posts request");
+        return postsService.findPost(name);
     }
 
     @GetMapping("/article/{id}")

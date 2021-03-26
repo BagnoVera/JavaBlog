@@ -102,9 +102,7 @@ public class DefaultPostsService implements PostsService {
                 System.out.println("Такого поста не существует!");
                 return newFindPost;
             }
-
         }
-
     }
 
     public void deletePost(Integer postId) {

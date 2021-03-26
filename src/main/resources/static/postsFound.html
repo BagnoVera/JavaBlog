@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>JavaBlog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial_scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+</head>
+<!--
+/*<style type="text/css">
+    body { font-family: Arial, Helvetica, Sans-serif; font-size:13px;}
+    #sampleForm label { display:block; margin-top:10px;}
+    #sampleForm input[type="text"] { width:200px; border:solid 1px #000; padding:3px 0px;}
+    #sampleForm img { vertical-align:middle; cursor:pointer; }
+    .imageInputWrapper{ width:200px; border:solid 1px #000;  }
+    #sampleForm input.inputWithImage { width:175px; border:none; margin-right:5px;}
+</style> -->
+<body>
+<div class="page-wrapper">
+    <header>
+        <!-- Иконка сайта -->
+        <link rel="icon" href="images/favicon.ico" type="images/x-icon">
+        <!-- Логотип -->
+        <a href="#">
+            <img src="images/logo.png" alt="logo" width="90" height="90">
+        </a>
+        <!-- Логотип КОНЕЦ -->
+        <!-- Меню категории -->
+        <nav role="navigation">
+            <ul>
+                <li>
+                    <a href="index.html" class="active">Блог о Java</a>
+                </li>
+                <li>
+                    <a href="login.html">Войти</a>
+                </li>
+                <li>
+                    <a href="createNewPost.html">Создать новый пост</a>
+                </li>
+
+            </ul>
+        </nav>
+
+    </header>
+    <!-- Меню категории КОНЕЦ -->
+    <div id="post"></div>
+</div>
+<script>
+    function searchPost() {
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        const title = urlParams.get('title')
+        console.log(title);
+        //Загрузка поста
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var post = JSON.parse(this.responseText);
+                var html = '';
+                var newImg = document.createElement("img");
+                newImg.id = "ItemPreview";
+                html = html + `<div>
+                    <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="200" height="140" alt="Java"></a>
+                    <div class="details">
+                    <h2>${post.postTitle}</h2>
+                    <p>${post.postText}</p>
+                    <p>${post.postName}</p>
+                    </div>
+                    </div>`;
+                document.getElementById("post").innerHTML = html;
+            }
+            if (Object.keys(post).length === 0) {
+                document.getElementById("post").innerHTML = "Пост " + title + " не найден";
+            }
+        }
+        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + title, true);
+        xhttp.send();
+    }
+</script>
+<script>searchPost();</script>
+</body>
+</html>

@@ -65,7 +65,8 @@
 <h1>Добро пожаловать на JavaBlog</h1>
 <div class="article-holder">
 
-    <div id="postsList"></div>
+<!-- Здесь загрузка постов -->
+<div id="postsList"></div>
 
 <!--Создаем пользователя -->
 <div>
@@ -77,31 +78,45 @@
     <input id="user_passwd" placeholder="User password">
     <button onclick="createUser(), location.reload()">Создать пользователя</button>
 </div>
+    <!-- Поиск пользователя по Email-->
 <div>
     <input id="search_field">
     <button onclick="searchByEmail()">Поиск пользователя по Email</button>
     <p id="search_result"></p>
 </div>
+    <!-- Поиск поста-->
+    <form action="postsFound.html">
+        <input type="text" id="searchpost">
+        <input type="submit" value="Поищем пост">
+    </form>
+<!--
 <div>
     <input id="search_post">
     <button onclick="searchPost()">Поиск поста</button>
     <p id="search_post_result"></p>
 </div>
+-->
 
 </div>
-
 
 <script src="usersFunction.js"></script>
 <script src="postsFunction.js"></script>
 
 <script>
-    function searchPost() {
+    function searchPost(){
+        var link = "postsFound.html";
+        var search = document.getElementById("search_post");
+        //<a href="postsFound.html?id=${search}"></a>
+        window.location.href = "postsFound.html?id=${search}";
+    }
+    /*function searchPost() {
         var title = document.getElementById("search_post").value;
-        const queryString = window.location.search;
+        console.log(title);
+        /!*const queryString = window.location.search;
         console.log(queryString);
         const urlParams = new URLSearchParams(queryString);
-        const search = urlParams.get('search')
-        console.log(search);
+        const name = urlParams.get('name')
+        console.log(name);*!/
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
@@ -114,9 +129,10 @@
                 }
             }
         }
-        xhttp.open("GET", "http://localhost:8080/posts/findPost?name=" + title, true);
+
+        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + title, true);
         xhttp.send();
-    }
+    }*/
     //loadUsers();
     downloadPosts();
     //loadComments();

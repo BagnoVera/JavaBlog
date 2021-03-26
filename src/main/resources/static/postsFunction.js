@@ -21,12 +21,10 @@ function newPost() {
             formData.append("postText", postText);
             formData.append("file", file);
         }
-
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", "http://localhost:8080/posts/save");
         xmlhttp.send(formData);
     }
-
 }
 
 function downloadPosts(){
