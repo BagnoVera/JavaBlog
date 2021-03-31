@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +35,14 @@ public class DefaultPostsService implements PostsService {
     public DefaultPostsService() {
     }
 
-    private void validatePostsDTO(PostsDto postsDTO) throws UnauthorizedPostException {
-        if (isNull(postsDTO)) {
-            throw new UnauthorizedPostException("Object user is null, deleting a post prohibited");
-        }
-        if (isNull(postsDTO.getPostName()) || postsDTO.getPostName().isEmpty() ) {
-            throw new UnauthorizedPostException("Email is empty, deleting a post prohibited");
-        }
-    }
+//    private void validatePostsDTO(PostsDto postsDTO) throws UnauthorizedPostException {
+//        if (isNull(postsDTO)) {
+//            throw new UnauthorizedPostException("Object user is null, deleting a post prohibited");
+//        }
+//        if (isNull(postsDTO.getPostName()) || postsDTO.getPostName().isEmpty() ) {
+//            throw new UnauthorizedPostException("Email is empty, deleting a post prohibited");
+//        }
+//    }
 
     public void savePost(PostsDto postsDto)  {
         //validatePostsDTO(postsDto);
@@ -109,14 +113,6 @@ public class DefaultPostsService implements PostsService {
         postsRepo.deleteById(postId);
     }
 
-    /*public PostsDto findByPostId(Integer postId) {
-        Posts posts = postsRepo.findById(postId);
-        if (posts != null) {
-            return postsConverter.fromPostToPostDto(posts);
-        }
-        return null;
-    }*/
-
     public List<PostsDto> findAll() {
         return postsRepo.findAll()
                 .stream()
@@ -124,4 +120,18 @@ public class DefaultPostsService implements PostsService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String getFile(String path) {
+        String text = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                text = text + (line + "\n");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
 }

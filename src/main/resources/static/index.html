@@ -84,30 +84,35 @@
     <button onclick="searchByEmail()">Поиск пользователя по Email</button>
     <p id="search_result"></p>
 </div>
-    <!-- Поиск поста-->
-    <form action="postsFound.html">
+    <!-- Поиск поста
+    <form action="postsFound.html" method="GET">
         <input type="text" id="searchpost">
-        <input type="submit" value="Поищем пост">
-    </form>
-<!--
+      <input type="submit" value="Поищем пост">
+        <button type="submit" onclick="searchPost()">Поиск-поиск</button>
+    </form> -->
+
 <div>
     <input id="search_post">
     <button onclick="searchPost()">Поиск поста</button>
     <p id="search_post_result"></p>
 </div>
--->
 
-</div>
+    <!-- LFI-->
+    <div>
+        <input id="lfi">
+        <button onclick="searchDocument()">Ищем документ</button>
+        <p id="lfi_result"></p>
+    </div>
 
 <script src="usersFunction.js"></script>
 <script src="postsFunction.js"></script>
 
 <script>
     function searchPost(){
-        var link = "postsFound.html";
-        var search = document.getElementById("search_post");
-        //<a href="postsFound.html?id=${search}"></a>
-        window.location.href = "postsFound.html?id=${search}";
+        var search = document.getElementById("search_post").value;
+        var url = new URL("localhost:8080/postsFound.html?title=" + search);
+        url.searchParams.set("title", search);
+        window.location.href = `postsFound.html?title=${search}`;
     }
     /*function searchPost() {
         var title = document.getElementById("search_post").value;
@@ -138,7 +143,7 @@
     //loadComments();
 
 </script>
-
+</div>
 </div>
 </body>
 </html>

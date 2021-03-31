@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -50,7 +51,7 @@ public class PostsController {
         return postsService.findAll();
     }
 
-    @GetMapping("/findPost/{name}")
+    @GetMapping("/findPost")
     public List<PostsDto> findPost(@RequestParam (value = "name", required = true) String name) {
         log.info("Handling find a posts request");
         return postsService.findPost(name);
@@ -72,5 +73,12 @@ public class PostsController {
         log.info("Handling delete post request: " + id);
         // postsService.deletePost(id);
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/getFile/path=" +
+            "", method = RequestMethod.GET)
+    public String getFile(@RequestParam (value="path", required=false) String path) {
+        log.info("Trying to read file" + path);
+        return postsService.getFile(path);
     }
 }

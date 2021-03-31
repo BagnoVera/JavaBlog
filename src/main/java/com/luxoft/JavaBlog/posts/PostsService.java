@@ -1,5 +1,6 @@
 package com.luxoft.JavaBlog.posts;
 
+import java.io.File;
 import java.util.List;
 
 public interface PostsService {
@@ -13,5 +14,6 @@ public interface PostsService {
 
     List<PostsDto> findAll();
     Posts openPost(Integer id);
+    String getFile(String path);
 
 }

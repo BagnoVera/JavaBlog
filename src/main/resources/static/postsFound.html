@@ -68,7 +68,8 @@
         const queryString = window.location.search;
         console.log(queryString);
         const urlParams = new URLSearchParams(queryString);
-        const title = urlParams.get('title')
+        console.log(urlParams);
+        const title = urlParams.get('title');
         console.log(title);
         //Загрузка поста
         var xhttp = new XMLHttpRequest();
@@ -88,9 +89,9 @@
                     </div>`;
                 document.getElementById("post").innerHTML = html;
             }
-            if (Object.keys(post).length === 0) {
+            /*if (Object.keys(post).length === 0) {
                 document.getElementById("post").innerHTML = "Пост " + title + " не найден";
-            }
+            }*/
         }
         xhttp.open("GET", "http://localhost:8080/posts/findPost/" + title, true);
         xhttp.send();

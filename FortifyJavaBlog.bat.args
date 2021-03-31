@@ -2,7 +2,7 @@
 "-cp" 
 "C:\Users\VBagno\IdeaProjects\JavaBlog\gradle\wrapper\gradle-wrapper.jar;C:\Users\VBagno\IdeaProjects\JavaBlog\build\classes\java\main" 
 "-source" 
-"1.8" 
+"13" 
 "-exclude" "C:\Users\VBagno\IdeaProjects\JavaBlog\**\*.jar" 
 "-exclude" "C:\Users\VBagno\IdeaProjects\JavaBlog\**\*.class" 
 "C:\Users\VBagno\IdeaProjects\JavaBlog" 
