@@ -11,9 +11,9 @@ public interface PostsService {
     CommentsDto findByEmail(String commentEmail); */
     List<PostsDto> findPost(String name);
 
-
     List<PostsDto> findAll();
     Posts openPost(Integer id);
     String getFile(String path);
+    //List<PostsDto> searchPost(String path);
 
 }

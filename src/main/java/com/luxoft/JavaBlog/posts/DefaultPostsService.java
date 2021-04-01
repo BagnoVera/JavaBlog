@@ -120,6 +120,11 @@ public class DefaultPostsService implements PostsService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostsDto> searchPost(String path){
+        return findPost(path);
+    }
+
+
     @Override
     public String getFile(String path) {
         String text = "";

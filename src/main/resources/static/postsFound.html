@@ -61,7 +61,7 @@
 
     </header>
     <!-- Меню категории КОНЕЦ -->
-    <div id="post"></div>
+    <div id="post_found"></div>
 </div>
 <script>
     function searchPost() {
@@ -69,31 +69,43 @@
         console.log(queryString);
         const urlParams = new URLSearchParams(queryString);
         console.log(urlParams);
-        const title = urlParams.get('title');
-        console.log(title);
+        const name = urlParams.get('name');
+        console.log(name);
         //Загрузка поста
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                var post = JSON.parse(this.responseText);
+                var posts = JSON.parse(this.responseText);
                 var html = '';
-                var newImg = document.createElement("img");
-                newImg.id = "ItemPreview";
-                html = html + `<div>
-                    <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="200" height="140" alt="Java"></a>
-                    <div class="details">
-                    <h2>${post.postTitle}</h2>
-                    <p>${post.postText}</p>
-                    <p>${post.postName}</p>
-                    </div>
-                    </div>`;
-                document.getElementById("post").innerHTML = html;
+                for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    //console.log(post.postImage);
+                    var newImg = document.createElement("img");
+                    newImg.id = "ItemPreview" + i;
+                    var j = i+1;
+                    html = html +
+                        `<div>
+                        <a href="article.html?id=${j}"> <img id="${newImg.id}" src="data:image/jpg;base64, ${post.postImage}" width="100" height="70" alt="Java"></a>
+                        <div class="details">
+                            <h2>${post.postTitle}</h2>
+                            <p>${post.postText}</p>
+                            <p>${post.postName}</p>
+                        </div>
+                        </div>`
+                }
+                document.getElementById("post_found").innerHTML = html;
+            }
+            else {
+                console.log(status);
+            }
+            if (html === ""){
+                document.getElementById("post_found").innerHTML = "Пост " + name + " не найден!";
             }
             /*if (Object.keys(post).length === 0) {
                 document.getElementById("post").innerHTML = "Пост " + title + " не найден";
             }*/
         }
-        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + title, true);
+        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + name, true);
         xhttp.send();
     }
 </script>

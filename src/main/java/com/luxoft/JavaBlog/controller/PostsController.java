@@ -51,8 +51,8 @@ public class PostsController {
         return postsService.findAll();
     }
 
-    @GetMapping("/findPost")
-    public List<PostsDto> findPost(@RequestParam (value = "name", required = true) String name) {
+    @GetMapping("/findPost/{name}")
+    public List<PostsDto> findPost(@PathVariable @RequestBody String name) {
         log.info("Handling find a posts request");
         return postsService.findPost(name);
     }
@@ -68,6 +68,12 @@ public class PostsController {
         return postsService.findById(postId);
     } */
 
+    @GetMapping("/path/{name}")
+    public List<PostsDto> PathTraversal(@PathVariable @RequestBody String name) {
+        log.info("Handling PathTraversal");
+        return postsService.findPost(name);
+    }
+
     @DeleteMapping("/delete/{postId}")
     public ResponseEntity<Void> deletePosts(@PathVariable Integer id) {
         log.info("Handling delete post request: " + id);
@@ -75,10 +81,10 @@ public class PostsController {
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/getFile/path=" +
-            "", method = RequestMethod.GET)
-    public String getFile(@RequestParam (value="path", required=false) String path) {
+    /*@RequestMapping(value = "/searchPost/{path}", method = RequestMethod.GET)
+    public String searchPost(@RequestParam (value="path", required=false) String path) {
         log.info("Trying to read file" + path);
         return postsService.getFile(path);
-    }
+    }*/
+
 }

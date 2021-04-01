@@ -110,9 +110,9 @@
 <script>
     function searchPost(){
         var search = document.getElementById("search_post").value;
-        var url = new URL("localhost:8080/postsFound.html?title=" + search);
-        url.searchParams.set("title", search);
-        window.location.href = `postsFound.html?title=${search}`;
+        var url = new URL("localhost:8080/postsFound.html?name=" + search);
+        url.searchParams.set("name", search);
+        window.location.href = `postsFound.html?name=${search}`;
     }
     /*function searchPost() {
         var title = document.getElementById("search_post").value;
