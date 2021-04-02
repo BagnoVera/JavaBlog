@@ -9,6 +9,7 @@ import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
 
@@ -62,17 +65,26 @@ public class PostsController {
         log.info("Handling find all articles request");
         return postsService.openPost(id);
     }
-    /*@GetMapping("/findByPostId")
-    public PostsDto findById(@RequestParam Integer postId) {
-        log.info("Handling find by id request: " + postId);
-        return postsService.findById(postId);
-    } */
 
-    @GetMapping("/path/{name}")
-    public List<PostsDto> PathTraversal(@PathVariable @RequestBody String name) {
+    @GetMapping("/path/**")
+    public String getFile(/*@PathVariable @RequestBody String name,*/ HttpServletRequest request) {
+        String restOfTheUrl = (String) request.getAttribute(
+                HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         log.info("Handling PathTraversal");
-        return postsService.findPost(name);
+        log.info(restOfTheUrl);
+        String pathToFile = restOfTheUrl.substring(12,restOfTheUrl.length());
+        log.info(pathToFile);
+        return postsService.getFile(pathToFile);
     }
+
+    /*@GetMapping("/blog/files")
+    public String downloadFile(@RequestParam(value = "f") String fileName) throws IOException {
+        Path source = Paths.get(folder,"\\", fileName);
+        Path dest = Paths.get(downloads, "\\", "copy.txt");
+        fileService.copyFile(source, dest);
+        return "redirect:/blog";
+    }*/
+
 
     @DeleteMapping("/delete/{postId}")
     public ResponseEntity<Void> deletePosts(@PathVariable Integer id) {

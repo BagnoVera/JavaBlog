@@ -62,11 +62,11 @@
     </header>
     <!-- Меню категории КОНЕЦ -->
     <div id="post_found"></div>
+    <div id="lfi_result"></div>
 </div>
 <script>
     function searchPost() {
         const queryString = window.location.search;
-        console.log(queryString);
         const urlParams = new URLSearchParams(queryString);
         console.log(urlParams);
         const name = urlParams.get('name');
@@ -108,7 +108,35 @@
         xhttp.open("GET", "http://localhost:8080/posts/findPost/" + name, true);
         xhttp.send();
     }
+
+    function searchDocument() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams);
+        const file = urlParams.get('file');
+        console.log(file);
+        //Загрузка поста
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var text = this.responseText;
+                document.getElementById("lfi_result").innerHTML = text;
+            }
+            else {
+                console.log(status)
+            }
+            if (text === ""){
+                document.getElementById("lfi_result").innerHTML = "Файл не найден!";
+            }
+            /*if (Object.keys(post).length === 0) {
+                document.getElementById("post").innerHTML = "Пост " + title + " не найден";
+            }*/
+        }
+        xhttp.open("GET", "http://localhost:8080/posts/path/" + file, true);
+        xhttp.send();
+    }
 </script>
 <script>searchPost();</script>
+<script>searchDocument();</script>
 </body>
 </html>

@@ -127,12 +127,14 @@ public class DefaultPostsService implements PostsService {
 
     @Override
     public String getFile(String path) {
+        String newPath = "C:/Users/VBagno/IdeaProjects/JavaBlog/src/main/resources/" + path;
         String text = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(newPath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 text = text + (line + "\n");
             }
+            System.out.println(text);
         }
         catch (IOException e) {
             e.printStackTrace();

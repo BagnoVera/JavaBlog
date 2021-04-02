@@ -63,20 +63,20 @@ function deletePost(postId) {
     loadUsers();
 }
 
-function searchDocument() {
-    var filename = document.getElementById("lfi").value;
-    var url = new URL("localhost:8080/index.html?filename=" + filename);
-    url.searchParams.set("path", filename);
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://localhost:8080/posts/getFile/path=" + filename, true);
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            var responde = this.responseText;
-            if (responde === "true"){
-                document.getElementById("lfi_result").innerHTML = "Документ " + filename + " существует!";
-            }
-            else{document.getElementById("lfi_result").innerHTML = "Документ " + filename + " не существует!";}
-        }
-    }
-    xhttp.send();
-}
+// function searchDocument() {
+//     //var filename = document.getElementById("lfi").value;
+//     var url = new URL("localhost:8080/index.html?path=" + filename);
+//     url.searchParams.set("path", filename);
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.open("GET", "http://localhost:8080/posts/path/" + filename, true);
+//     xhttp.onreadystatechange = function () {
+//         if (this.readyState === 4 && this.status === 200) {
+//             var responde = this.responseText;
+//             if (responde === "true"){
+//                 document.getElementById("lfi_result").innerHTML = "Документ " + filename + " существует!";
+//             }
+//             else{document.getElementById("lfi_result").innerHTML = "Документ " + filename + " не существует!";}
+//         }
+//     }
+//     xhttp.send();
+// }

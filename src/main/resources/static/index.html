@@ -90,19 +90,12 @@
       <input type="submit" value="Поищем пост">
         <button type="submit" onclick="searchPost()">Поиск-поиск</button>
     </form> -->
-
+<button onclick="searchDoc()">Политика конфиденциальности</button>
 <div>
     <input id="search_post">
     <button onclick="searchPost()">Поиск поста</button>
     <p id="search_post_result"></p>
 </div>
-
-    <!-- LFI-->
-    <div>
-        <input id="lfi">
-        <button onclick="searchDocument()">Ищем документ</button>
-        <p id="lfi_result"></p>
-    </div>
 
 <script src="usersFunction.js"></script>
 <script src="postsFunction.js"></script>
@@ -114,30 +107,14 @@
         url.searchParams.set("name", search);
         window.location.href = `postsFound.html?name=${search}`;
     }
-    /*function searchPost() {
-        var title = document.getElementById("search_post").value;
-        console.log(title);
-        /!*const queryString = window.location.search;
-        console.log(queryString);
-        const urlParams = new URLSearchParams(queryString);
-        const name = urlParams.get('name')
-        console.log(name);*!/
-        var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                var responde = JSON.parse(this.responseText);
-                if (Object.keys(responde).length !== 0){
-                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " найден: " + responde;
-                } else {
-                    document.getElementById("search_post_result").innerHTML = "Пост " + title + " не существует!";
-                }
-            }
-        }
+    function searchDoc(){
+        var search = "static/etc/folder/SiteRules.txt";
+        var url = new URL("localhost:8080/postsFound.html?file=" + search);
+        url.searchParams.set("file", search);
+        window.location.href = `postsFound.html?file=${search}`;
+    }
 
-        xhttp.open("GET", "http://localhost:8080/posts/findPost/" + title, true);
-        xhttp.send();
-    }*/
     //loadUsers();
     downloadPosts();
     //loadComments();
